@@ -136,16 +136,13 @@
 //  Domaines d'intervention — liste à puces, sur deux colonnes
 // ============================================================================
 #section("Domaines d'intervention", icon-name: "briefcase")
-#grid(
-  columns: (1fr, 1fr),
-  column-gutter: 18pt,
-  row-gutter: 12pt,
-  ..d.expertise.map(x => [
-    #icon(x.icon, size: 14pt) #h(4pt) #text(font: f-title, weight: 700, size: 10.2pt, tracking: 0.5pt, fill: gold, upper(x.title))
-    #v(-2pt)
-    #list(..x.items)
-  ]),
-)
+// Une seule colonne : chaque domaine sur toute la largeur, titre gardé avec sa liste
+#for (i, x) in d.expertise.enumerate() {
+  block(sticky: true, above: if i == 0 { 0pt } else { 14pt }, below: 5pt)[
+    #icon(x.icon, size: 14pt) #h(4pt) #text(font: f-title, weight: 700, size: 10.5pt, tracking: 0.8pt, fill: gold, upper(x.title))
+  ]
+  list(..x.items)
+}
 
 // ============================================================================
 //  Compétences — « Libellé : valeurs », comme dans le CV d'origine

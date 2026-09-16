@@ -8,6 +8,7 @@ import About from "./sections/About";
 import Resume from "./sections/Resume";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
+import Interests from "./sections/Interests";
 import { useTheme } from "./hooks/useTheme";
 import { profile } from "./data/cv";
 import { parsePath, pathFor, titleFor, type Route } from "./lib/routes";
@@ -63,6 +64,8 @@ export default function App() {
         return <Resume onOpenProjects={openCompanyProjects} />;
       case "projects":
         return <Projects company={projectCompany} onCompanyChange={changeProjectCompany} />;
+      case "interests":
+        return <Interests />;
       case "contact":
         return <Contact />;
     }

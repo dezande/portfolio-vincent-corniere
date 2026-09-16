@@ -21,8 +21,8 @@ export const profile = {
 };
 
 export const socials = [
-  { label: "GitHub", icon: "github", url: "https://github.com" },
-  { label: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com" },
+  { label: "GitHub", icon: "github", url: "https://github.com/dezande" },
+  { label: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/in/vincentcorniere/" },
 ];
 
 export const about = {
@@ -290,7 +290,17 @@ export const projects: Project[] = [
   },
 ];
 
-export const interests = ["Cuisine", "Magie", "Jeux de plateau"];
+/**
+ * Centres d'intérêt (CV). `text` est facultatif : une phrase personnelle à ajouter
+ * s'affichera sous le titre de la carte.
+ */
+export type Interest = { title: string; icon: string; text?: string };
+
+export const interests: Interest[] = [
+  { title: "Cuisine", icon: "chef" },
+  { title: "Magie", icon: "wand" },
+  { title: "Jeux de plateau", icon: "pawn" },
+];
 
 export type Company = {
   name: string;

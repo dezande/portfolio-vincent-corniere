@@ -242,3 +242,34 @@ export const ShopBag = (p: MagicIconProps) => (
     <path d="M9 10V6.5a3 3 0 0 1 6 0V10" />
   </Base>
 );
+
+/* ---- Centres d'intérêt ---- */
+
+/** Onglet « Centres d'intérêt » — cœur étoilé */
+export const StarHeart = (p: MagicIconProps) => (
+  <Base {...p}>
+    <path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" />
+    <path d={spark(12, 12.4, 3)} fill="currentColor" stroke="none" />
+  </Base>
+);
+
+/** Cuisine — toque de chef */
+export const ChefHat = (p: MagicIconProps) => (
+  <Base {...p}>
+    <path d="M7 14.5a3.8 3.8 0 0 1-1.3-7.3 4.2 4.2 0 0 1 7-3 3.9 3.9 0 0 1 5.8 1.9A3.7 3.7 0 0 1 17 14.5" />
+    <path d="M7 12.5v7h10v-7" />
+    <path d="M7 16.8h10" />
+    <path d="M10 12.5v2M14 12.5v2" strokeOpacity={0.6} />
+  </Base>
+);
+
+/** Jeux de plateau — pion et dé */
+export const PawnDie = (p: MagicIconProps) => (
+  <Base {...p}>
+    <circle cx="7.5" cy="6" r="2.4" />
+    <path d="M5.8 8.6 4.6 15h5.8L9.2 8.6M3.5 19.5h8l-1.1-4.5H4.6z" />
+    <rect x="13.5" y="11.5" width="7.5" height="7.5" rx="1.4" transform="rotate(-10 17.2 15.2)" />
+    <circle cx="15.6" cy="13.8" r=".9" fill="currentColor" stroke="none" />
+    <circle cx="18.6" cy="16.5" r=".9" fill="currentColor" stroke="none" />
+  </Base>
+);

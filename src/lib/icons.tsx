@@ -1,8 +1,8 @@
 import type { ReactNode, SVGAttributes } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import {
-  Cards, CrystalBall, DecoClose, DecoSun, Eiffel, Envelope, Grimoire, Hourglass,
-  Mask, Quill, Scroll, StarMoon, Theatre, TopHat, Trunk, Wand,
+  Cards, ChefHat, CrystalBall, DecoClose, DecoSun, Eiffel, Envelope, Grimoire, Hourglass,
+  Mask, PawnDie, Quill, Scroll, StarHeart, StarMoon, Theatre, TopHat, Trunk, Wand,
 } from "./magicIcons";
 
 type AnyIcon = (props: SVGAttributes<SVGElement>) => ReactNode;
@@ -16,6 +16,7 @@ export const icons: Record<string, AnyIcon> = {
   building: Theatre,
   grid: Cards,
   mail: Envelope,
+  heart: StarHeart,
   // Boutons
   right: Wand,
   send: Quill,
@@ -27,6 +28,10 @@ export const icons: Record<string, AnyIcon> = {
   code: Wand,
   server: Trunk,
   book: Grimoire,
+  // Centres d'intérêt
+  chef: ChefHat,
+  wand: Wand,
+  pawn: PawnDie,
   // Contact
   pin: Eiffel,
   calendar: Hourglass,

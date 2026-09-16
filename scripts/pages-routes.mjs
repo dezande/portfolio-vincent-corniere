@@ -10,7 +10,7 @@ const DIST = "dist";
 const slugify = (t) =>
   t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-const pages = ["a-propos", "parcours", "entreprises", "projets", "contact"];
+const pages = ["a-propos", "parcours", "entreprises", "projets", "centres-d-interet", "contact"];
 
 // Noms des entreprises, lus dans les données pour ne pas les dupliquer à la main.
 const cv = readFileSync("src/data/cv.ts", "utf8");

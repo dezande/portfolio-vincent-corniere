@@ -6,7 +6,7 @@ import { companies } from "../data/cv";
  * Toute modification des slugs doit rester alignée avec scripts/pages-routes.mjs.
  */
 
-export const SCREENS = ["home", "about", "resume", "projects", "contact"] as const;
+export const SCREENS = ["home", "about", "resume", "projects", "interests", "contact"] as const;
 export type ScreenId = (typeof SCREENS)[number];
 
 export const SLUGS: Record<ScreenId, string> = {
@@ -14,6 +14,7 @@ export const SLUGS: Record<ScreenId, string> = {
   about: "a-propos",
   resume: "parcours",
   projects: "projets",
+  interests: "centres-d-interet",
   contact: "contact",
 };
 
@@ -25,6 +26,7 @@ const TITLES: Record<ScreenId, string> = {
   about: "À propos",
   resume: "Parcours",
   projects: "Projets",
+  interests: "Centres d'intérêt",
   contact: "Contact",
 };
 

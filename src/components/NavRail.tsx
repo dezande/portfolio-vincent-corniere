@@ -8,6 +8,7 @@ export const NAV: { id: ScreenId; label: string; icon: string }[] = [
   { id: "about", label: "À propos", icon: "user" },
   { id: "resume", label: "Parcours", icon: "briefcase" },
   { id: "projects", label: "Projets", icon: "grid" },
+  { id: "interests", label: "Centres d'intérêt", icon: "heart" },
   { id: "contact", label: "Contact", icon: "mail" },
 ];
 

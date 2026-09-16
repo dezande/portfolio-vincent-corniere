@@ -6,19 +6,18 @@
 //  filets fins, lisible en noir et blanc.
 //
 //  Données : data.json, extrait du site par scripts/export-data.mjs.
-//  Génération : ./build.sh  (PDF couleur + PDF noir et blanc)
+//  Génération : npm run cv (ou cv/build.sh)
 // ============================================================================
 
 #let d = json("data.json")
-#let mode = sys.inputs.at("mode", default: "couleur") // "couleur" | "nb"
 
 // --- Palette -----------------------------------------------------------------
-// « couleur » : or sombre et rouge profond, lisibles une fois convertis en gris.
-// « nb » : niveaux de gris purs, pour une impression monochrome garantie.
-#let ink = if mode == "nb" { luma(10%) } else { rgb("#1b1511") }
-#let gold = if mode == "nb" { luma(38%) } else { rgb("#8a6420") }
-#let red = if mode == "nb" { luma(18%) } else { rgb("#7c1a1a") }
-#let muted = if mode == "nb" { luma(30%) } else { rgb("#4a3f35") }
+// Or sombre et rouge profond, choisis pour rester lisibles si le PDF est imprimé
+// en noir et blanc (or ≈ 40 % de gris, rouge ≈ 80 %).
+#let ink = rgb("#1b1511")
+#let gold = rgb("#8a6420")
+#let red = rgb("#7c1a1a")
+#let muted = rgb("#4a3f35")
 
 #let f-display = "Cinzel Decorative"
 #let f-title = "Cinzel"

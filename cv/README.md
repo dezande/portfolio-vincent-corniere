@@ -8,13 +8,10 @@ aucun aplat, filets fins, lisible en noir et blanc.
 ```bash
 npm run cv          # depuis la racine du projet
 # ou
-cd cv && ./build.sh [couleur|nb|tous]
+cd cv && ./build.sh
 ```
 
-| Fichier généré | Usage |
-| --- | --- |
-| `cv/cv-vincent-corniere.pdf` | impression couleur économe (or sombre, rouge profond) |
-| `cv/cv-vincent-corniere-nb.pdf` | impression noir et blanc, niveaux de gris purs |
+Le PDF généré, `cv/cv-vincent-corniere.pdf`, est copié dans `public/cv/` : le bouton « Télécharger le CV » du site pointe dessus.
 
 Prérequis : `typst` (`brew install typst`) et Node.js. Les polices (licence SIL OFL) sont
 téléchargées dans `cv/fonts/` au premier lancement.

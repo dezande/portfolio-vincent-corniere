@@ -24,6 +24,19 @@
 #let f-title = "Cinzel"
 #let f-body = "EB Garamond"
 
+// --- Icônes du site (exportées en SVG dans data.json) --------------------------
+#let icon(name, size: 11pt, color: gold) = box(baseline: 18%, image(
+  bytes(d.icons.at(name).replace("currentColor", color.to-hex())),
+  format: "svg",
+  height: size,
+))
+
+// Médaillon d'icône : cercle fin, icône au centre
+#let medal(name, size: 22pt) = box(baseline: 30%, width: size, height: size, {
+  place(center + horizon, circle(radius: size / 2, stroke: 0.6pt + gold))
+  place(center + horizon, icon(name, size: size * 0.56))
+})
+
 // --- Ornements (traits fins, très peu d'encre) -------------------------------
 #let star(r: 3pt, fill: gold) = box(width: 2 * r, height: 2 * r, baseline: 15%, place(dx: r, dy: r, polygon(
   fill: fill,
@@ -47,9 +60,10 @@
 )))
 
 // Titre de section à la manière du CV d'origine : capitales, puis filet pleine largeur
-#let section(title) = block(above: 22pt, below: 12pt, sticky: true, {
-  text(font: f-title, weight: 700, size: 12.5pt, tracking: 1.2pt, fill: ink, upper(title))
-  v(-6pt)
+#let section(title, icon-name: none) = block(above: 28pt, below: 14pt, sticky: true, {
+  if icon-name != none { medal(icon-name, size: 30pt); h(10pt) }
+  text(font: f-title, weight: 700, size: 18pt, tracking: 1.4pt, fill: ink, upper(title))
+  v(-4pt)
   grid(
     columns: (1fr, auto, 1fr),
     align: horizon,
@@ -60,7 +74,7 @@
   )
 })
 
-#let label(body) = text(font: f-title, weight: 700, size: 8.4pt, tracking: 0.8pt, fill: gold, upper(body))
+#let label(body, size: 8.8pt) = text(font: f-title, weight: 700, size: size, tracking: 1.2pt, fill: gold, upper(body))
 
 // --- Page : double filet et losanges d'angle -------------------------------
 #let frame = {
@@ -78,11 +92,11 @@
   paper: "a4",
   margin: (x: 20mm, top: 18mm, bottom: 20mm),
   background: frame,
-  footer: context align(center, text(font: f-title, size: 7pt, tracking: 1.6pt, fill: gold)[
+  footer: context align(center, text(font: f-title, size: 8pt, tracking: 1.6pt, fill: gold)[
     #star(r: 2pt) #h(4pt) #upper(d.profile.fullName) #h(6pt) · #h(6pt) #counter(page).display() / #counter(page).final().first() #h(4pt) #star(r: 2pt)
   ]),
 )
-#set text(font: f-body, size: 10.5pt, fill: ink, lang: "fr", hyphenate: false)
+#set text(font: f-body, size: 12pt, fill: ink, lang: "fr", hyphenate: false)
 #set par(justify: false, leading: 0.62em, spacing: 0.9em)
 #set list(marker: star(r: 2.4pt), indent: 6pt, body-indent: 8pt, spacing: 0.6em)
 #show link: it => it
@@ -90,39 +104,36 @@
 // ============================================================================
 //  En-tête — coordonnées en haut à gauche, grand titre centré
 // ============================================================================
-#grid(
-  columns: (1fr, auto),
-  align: (left + top, right + top),
-  [
-    #text(font: f-display, weight: 700, size: 15pt, tracking: 1pt, fill: ink)[#d.profile.firstName #upper(d.profile.lastName)]
-    #v(-4pt)
-    #set text(size: 10.5pt, fill: muted)
-    #d.profile.location \
-    #link("mailto:" + d.profile.email)[#d.profile.email] \
-    #d.socials.map(s => link(s.url)[#s.url.replace("https://", "").replace("www.", "").trim("/", at: end)]).join(linebreak())
-  ],
-  text(font: f-title, size: 8.5pt, tracking: 1pt, fill: gold, upper("Disponibilité : " + d.profile.availability)),
-)
+#let contact(name, body) = box[#icon(name, size: 12pt) #h(3pt) #body]
+#let gap = h(16pt)
 
-#v(18pt)
 #align(center)[
-  #text(font: f-display, weight: 900, size: 25pt, fill: ink)[#d.profile.roleLong]
-  #v(-10pt)
-  #text(font: f-display, weight: 700, size: 21pt, fill: red)[#d.profile.specialty]
-  #v(2pt)
-  #divider()
+  #text(font: f-title, weight: 600, size: 12.5pt, tracking: 5pt, fill: gold)[#star(r: 2.8pt) #h(8pt) #upper(d.profile.fullName) #h(8pt) #star(r: 2.6pt)]
+  #v(4pt)
+  #text(font: f-display, weight: 900, size: 29pt, fill: ink)[#d.profile.roleLong.replace("-", "\u{2011}")]
+  #v(-14pt)
+  #text(font: f-display, weight: 700, size: 23pt, fill: red)[#d.profile.specialty]
+  #v(4pt)
+  #divider(width: 90mm)
+  #v(6pt)
+  #set text(size: 11pt, fill: muted)
+  #contact("pin", d.profile.location) #gap
+  #contact("mail", link("mailto:" + d.profile.email)[#d.profile.email]) #gap
+  #contact("calendar", [Disponibilité : #d.profile.availability])
+  #v(1pt)
+  #d.socials.map(so => contact(lower(so.label), link(so.url)[#so.url.replace("https://", "").replace("www.", "").trim("/", at: end)])).join(gap)
 ]
 
 // ============================================================================
 //  Domaines d'intervention — liste à puces, sur deux colonnes
 // ============================================================================
-#section("Domaines d'intervention")
+#section("Domaines d'intervention", icon-name: "briefcase")
 #grid(
   columns: (1fr, 1fr),
   column-gutter: 18pt,
   row-gutter: 12pt,
   ..d.expertise.map(x => [
-    #label(x.title)
+    #icon(x.icon, size: 14pt) #h(4pt) #text(font: f-title, weight: 700, size: 10.2pt, tracking: 0.5pt, fill: gold, upper(x.title))
     #v(-2pt)
     #list(..x.items)
   ]),
@@ -131,26 +142,27 @@
 // ============================================================================
 //  Compétences — « Libellé : valeurs », comme dans le CV d'origine
 // ============================================================================
-#section("Compétences")
-#list(..d.skillGroups.map(g => [*#g.k :* #g.v]))
+#section("Compétences", icon-name: "grid")
+#block(breakable: false, list(..d.skillGroups.map(g => [#text(font: f-title, weight: 700, size: 11pt)[#g.k :] #h(2pt) #text(size: 12pt)[#g.v]])))
 
 // ============================================================================
 //  Formations
 // ============================================================================
-#section("Formations")
+#section("Formations", icon-name: "book")
 #list(..d.education.map(e => [
-  #text(font: f-title, weight: 700, fill: gold)[#e.period :] *#e.role* — #text(style: "italic")[#e.org]
+  #text(font: f-display, weight: 900, size: 15pt, fill: gold)[#e.period] #h(6pt) #text(font: f-title, weight: 700, size: 12.5pt)[#e.role] \
+  #text(size: 11pt, style: "italic", fill: muted)[#e.org]
 ]))
 
 // ============================================================================
 //  Expériences professionnelles — entreprise, poste, dates, projets détaillés
 // ============================================================================
-#section("Expériences professionnelles")
+#section("Expériences professionnelles", icon-name: "building")
 
 #let project-block(p) = block(breakable: false, above: 12pt, below: 4pt, {
-  text(font: f-title, weight: 700, size: 10.5pt, fill: ink)[#p.title]
-  h(5pt)
-  text(size: 9.5pt, style: "italic", fill: gold)[#p.year]
+  text(font: f-title, weight: 700, size: 13.5pt, fill: ink)[#p.title]
+  h(6pt)
+  text(font: f-title, size: 9.6pt, tracking: 1pt, fill: gold)[#p.year]
   v(-4pt)
   p.desc
   if p.bullets.len() > 0 {
@@ -161,9 +173,9 @@
 
 #let company-footer(c) = {
   if c.clients.len() > 0 {
-    block(above: 10pt, below: 0pt)[#label(c.at("clientsLabel", default: "Clients & projets")) #h(5pt) #c.clients.join(" · ")]
+    block(above: 10pt, below: 0pt)[#label(c.at("clientsLabel", default: "Clients & projets")) #h(5pt) #text(size: 11pt)[#c.clients.join(" · ")]]
   }
-  block(above: 6pt, below: 0pt)[#label("Environnement technique") #h(5pt) #text(style: "italic")[#c.stack.join(", ")]]
+  block(above: 6pt, below: 0pt)[#label("Environnement technique") #h(5pt) #text(size: 11pt, style: "italic", fill: muted)[#c.stack.join(", ")]]
 }
 
 #for (i, c) in d.companies.enumerate() {
@@ -174,13 +186,13 @@
     grid(
       columns: (1fr, auto),
       align: (left + bottom, right + bottom),
-      text(font: f-display, weight: 900, size: 15pt, fill: ink, upper(c.name)),
-      text(font: f-title, weight: 600, size: 8.8pt, tracking: 0.8pt, fill: gold, upper(c.period)),
+      text(font: f-display, weight: 900, size: 23pt, fill: ink, upper(c.name)),
+      [#icon("calendar", size: 11.5pt) #h(3pt) #text(font: f-title, weight: 600, size: 9.8pt, tracking: 1.2pt, fill: gold, upper(c.period))],
     )
     v(-5pt)
-    text(font: f-title, weight: 700, size: 11pt, fill: red)[#c.role]
+    text(font: f-title, weight: 700, size: 15pt, fill: red)[#c.role]
     h(6pt)
-    text(style: "italic", fill: muted)[#c.kind]
+    text(size: 11.5pt, style: "italic", fill: muted)[#c.kind]
   })
 
   // Dernier élément (projet ou réalisations) + clients + environnement : toujours sur la même page,
@@ -210,5 +222,9 @@
 // ============================================================================
 //  Centres d'intérêt
 // ============================================================================
-#section("Centres d'intérêt")
-#list(..d.interests.map(it => if it.text != none [*#it.title* — #it.text] else [#it.title]))
+#section("Centres d'intérêt", icon-name: "heart")
+#align(center, d.interests.map(it => box[
+  #icon(it.icon, size: 21pt) #h(6pt)
+  #text(font: f-title, weight: 600, size: 14pt, tracking: 1.6pt, fill: ink, upper(it.title))
+  #if it.text != none [ — #text(style: "italic")[#it.text]]
+]).join(h(26pt)))

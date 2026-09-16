@@ -2,9 +2,10 @@
 //  Cartes de visite de Vincent Cornière — 5 variantes
 //  Même direction artistique que le site et le CV (affiche de magicien, Art déco).
 //
-//  Recto : nom, métier, et une frise de 5 losanges sur laquelle un lapin est assis.
-//  La place du lapin (1 à 5, de gauche à droite) est le seul marquage : elle se lit
-//  d'un coup d'œil mais passe pour un ornement. Le verso est identique sur les 5.
+//  Recto : nom, métier, et une frise où un lapin est assis entre 4 losanges.
+//  Le seul marquage est un losange évidé (voir rabbit-rail) : invisible pour qui
+//  ne le cherche pas, lisible d'un coup d'œil grâce au lapin qui sert de repère.
+//  Verso : blanc et vide, pour que les spectateurs puissent y dessiner.
 //
 //  Format : 85 × 55 mm, fond perdu de 3 mm (page de 91 × 61 mm).
 //  Ordre des pages : recto 1, verso, recto 2, verso… (impression recto verso).
@@ -68,20 +69,28 @@
   place(bottom + left, dx: r - 2.2mm, dy: 2.2mm, circle(radius: 2.2mm, fill: bg, stroke: 0.5pt + gold))
 })
 
-// Frise de marquage : 5 emplacements ; le lapin est assis au-dessus de l'emplacement n
+// Frise de marquage : le lapin est toujours assis au centre, entre 4 losanges.
+// Un seul losange est évidé ; sa place par rapport au lapin donne le numéro :
+//   1 = loin à gauche, 2 = près à gauche, 3 = aucun (tous pleins), 4 = près à droite, 5 = loin à droite.
+// Le lapin sert de repère : on lit le marquage sans compter.
 #let rabbit-rail(n) = {
   let slot = 7mm
+  let hollow = (0, 1, none, 3, 4).at(n - 1)
   box(width: 5 * slot + 16mm, height: 7mm, {
     place(bottom + left, dy: -1.4pt, line(length: 100%, stroke: 0.35pt + gold))
     place(bottom + left, dx: -1.8pt, dy: 0.4pt, star(r: 1.8pt))
     place(bottom + right, dx: 1.8pt, dy: 0.4pt, star(r: 1.8pt))
-    for k in range(1, 6) {
-      let x = 8mm + (k - 1) * slot + slot / 2
-      place(bottom + left, dx: x - 1.4pt, diamond(r: 1.4pt, fill: if k == n { bg } else { gold }))
-      if k == n {
-        place(bottom + left, dx: x - 2.6mm, dy: -2.1pt, image("lapin.svg", width: 5.2mm))
-      }
+    for k in (0, 1, 3, 4) {
+      let x = 8mm + k * slot + slot / 2
+      let r = 1.4pt
+      place(bottom + left, dx: x - r, box(width: 2 * r, height: 2 * r, place(dx: r, dy: r, polygon(
+        fill: if k == hollow { bg } else { gold },
+        stroke: if k == hollow { 0.4pt + gold } else { none },
+        (0pt, -r), (r, 0pt), (0pt, r), (-r, 0pt),
+      ))))
     }
+    let x = 8mm + 2 * slot + slot / 2
+    place(bottom + left, dx: x - 2.6mm, dy: -2.1pt, image("lapin.svg", width: 5.2mm))
   })
 }
 
@@ -101,39 +110,12 @@
   place(bottom + center, dy: -(bleed + 5.4mm), rabbit-rail(n))
 }
 
-#let verso = {
-  frame
-  let medal = 22mm
-  let scale = medal / 700
-  place(left + horizon, dx: bleed + 6.5mm, box(width: medal + 5pt, height: medal + 5pt, {
-    place(center + horizon, circle(radius: medal / 2 + 2.2pt, stroke: 0.6pt + gold))
-    place(center + horizon, box(width: medal, height: medal, radius: medal / 2, clip: true,
-      place(top + left, dx: -50 * scale, dy: -251 * scale,
-        image("../public/img/portrait.svg", width: 800 * scale, height: 1100 * scale))))
-  }))
-  let short(url) = url.replace("https://", "").replace("www.", "").trim("/", at: end)
-  let row(name, body) = [#icon(name, size: 6pt) #h(2.5pt) #body]
-  place(left + horizon, dx: bleed + 6.5mm + medal + 5.5mm, box(width: 43mm, {
-    set text(size: 6.2pt, fill: cream)
-    text(font: f-title, weight: 700, size: 7.4pt, tracking: 1.1pt, fill: gold, upper(d.profile.fullName))
-    v(-5pt)
-    text(size: 6.8pt, style: "italic", fill: muted, d.profile.roleLong + " · " + d.profile.specialty)
-    v(-2pt)
-    box(width: 100%, line(length: 100%, stroke: 0.3pt + gold))
-    v(-1pt)
-    stack(dir: ttb, spacing: 3.2pt,
-      row("mail", link("mailto:" + d.profile.email, d.profile.email)),
-      row("home", link(d.profile.website, short(d.profile.website))),
-      ..d.socials.map(so => row(lower(so.label), link(so.url, short(so.url)))),
-      row("pin", d.profile.location),
-    )
-  }))
-}
+// Verso vide et blanc : les spectateurs doivent pouvoir y dessiner au stylo
+#let verso = page(fill: white)[]
 
 #let variants = sys.inputs.at("variants", default: "1,2,3,4,5").split(",").map(int)
 #for (i, n) in variants.enumerate() {
   if i > 0 { pagebreak() }
   recto(n)
-  pagebreak()
   verso
 }

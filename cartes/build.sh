@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Génère cartes-de-visite.pdf : 5 rectos (lapin en position 1 à 5) alternés avec le verso commun.
+# Génère cartes-de-visite.pdf : 5 rectos marqués alternés avec un verso blanc.
 # Les données viennent du site (../src/data/cv.ts), via l'export du CV.
 set -euo pipefail
 cd "$(dirname "$0")"

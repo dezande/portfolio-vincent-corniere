@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import NavRail, { type ScreenId } from "./components/NavRail";
 import { Corner, Star } from "./components/Ornament";
@@ -11,21 +11,47 @@ import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
 import { useTheme } from "./hooks/useTheme";
 import { profile } from "./data/cv";
+import { parsePath, pathFor, titleFor, type Route } from "./lib/routes";
 
 export default function App() {
   const { theme, toggle } = useTheme();
-  const [screen, setScreen] = useState<ScreenId>("home");
-  const [projectCompany, setProjectCompany] = useState<string | null>(null);
+  // L'adresse du navigateur est la source de vérité : on la lit au chargement…
+  const [route, setRoute] = useState<Route>(() => parsePath(window.location.pathname));
+  const { screen, company: projectCompany } = route;
 
-  function openCompanyProjects(company: string) {
-    setProjectCompany(company);
-    setScreen("projects");
-  }
+  // …on la réécrit à chaque changement de page (push) ou de filtre (replace)…
+  const go = useCallback((next: Route, mode: "push" | "replace" = "push") => {
+    const url = pathFor(next);
+    if (url !== window.location.pathname) window.history[mode === "push" ? "pushState" : "replaceState"](null, "", url);
+    setRoute(next);
+  }, []);
+
+  // …et on suit les boutons Précédent / Suivant.
+  useEffect(() => {
+    const onPop = () => setRoute(parsePath(window.location.pathname));
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // Adresse canonique (ex. /projets sans barre finale → /projets/) et titre d'onglet.
+  useEffect(() => {
+    const url = pathFor(route);
+    if (url !== window.location.pathname) window.history.replaceState(null, "", url);
+    document.title = titleFor(route, `${profile.fullName} — ${profile.role}`);
+  }, [route]);
 
   function navigate(id: ScreenId) {
     // Depuis le menu, l'écran Projets s'ouvre sur toutes les entreprises.
-    if (id === "projects") setProjectCompany(null);
-    setScreen(id);
+    go({ screen: id, company: null });
+  }
+
+  function openCompanyProjects(company: string) {
+    go({ screen: "projects", company });
+  }
+
+  function changeProjectCompany(company: string | null) {
+    // Changer de filtre met à jour l'adresse sans empiler l'historique.
+    go({ screen: "projects", company }, "replace");
   }
 
   function render() {
@@ -39,7 +65,7 @@ export default function App() {
       case "companies":
         return <Companies onOpenProjects={openCompanyProjects} />;
       case "projects":
-        return <Projects company={projectCompany} onCompanyChange={setProjectCompany} />;
+        return <Projects company={projectCompany} onCompanyChange={changeProjectCompany} />;
       case "contact":
         return <Contact />;
     }

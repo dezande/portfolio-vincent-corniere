@@ -158,7 +158,7 @@ input, textarea { font: inherit; }
 /* Filet vertical qui relie les médaillons */
 .rail::before { content: ""; position: absolute; top: 18%; bottom: calc(18% + var(--footer-h)); left: 50%; width: 1px; background: linear-gradient(transparent, var(--gold-dim) 15%, var(--gold-dim) 85%, transparent); }
 
-.rail button {
+.rail .rail-link {
   position: relative;
   display: grid;
   place-items: center;
@@ -172,14 +172,14 @@ input, textarea { font: inherit; }
   box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 4px var(--gold-dim);
   transition: color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.rail button:hover { color: var(--gold-light); transform: scale(1.06); }
-.rail button[aria-current="true"] {
+.rail .rail-link:hover { color: var(--gold-light); transform: scale(1.06); }
+.rail .rail-link[aria-current="page"] {
   color: var(--bg);
   background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 60%, #8a6a2a);
   box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.25), 0 0 0 4px var(--bg), 0 0 0 5px var(--gold-dim), 0 0 22px rgba(201, 162, 74, 0.35);
 }
 
-.rail button .tip {
+.rail .rail-link .tip {
   position: absolute;
   left: calc(100% + 14px);
   padding: 4px 14px;
@@ -197,7 +197,7 @@ input, textarea { font: inherit; }
   transform: translateX(-6px);
   transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.rail button:hover .tip, .rail button:focus-visible .tip { opacity: 1; transform: translateX(0); }
+.rail .rail-link:hover .tip, .rail .rail-link:focus-visible .tip { opacity: 1; transform: translateX(0); }
 
 /* ============================================================
    Outils (thème)
@@ -698,8 +698,8 @@ input, textarea { font: inherit; }
     transform: translateX(-50%);
   }
   .rail::before { display: none; }
-  .rail button { width: 42px; height: 42px; font-size: 16px; }
-  .rail button .tip { display: none; }
+  .rail .rail-link { width: 42px; height: 42px; font-size: 16px; }
+  .rail .rail-link .tip { display: none; }
 
   .footer { bottom: 78px; height: 30px; font-size: 10px; letter-spacing: 0.14em; }
   .footer svg { display: none; }
@@ -742,14 +742,14 @@ input, textarea { font: inherit; }
   .facts .k { width: 100%; }
   .stack-list > div { grid-template-columns: minmax(0, 1fr); }
   .rail { gap: 5px; padding: 6px 10px; }
-  .rail button { width: 40px; height: 40px; }
+  .rail .rail-link { width: 40px; height: 40px; }
 }
 
 /* Pictogrammes dessinés main : trait fin et régulier */
 .mi { display: inline-block; width: 1.15em; height: 1.15em; flex: none; vertical-align: -0.2em; overflow: visible; }
 .rail .mi { width: 1.3em; height: 1.3em; }
 /* Couleur « creuse » des pictogrammes = fond réel du support */
-.rail button[aria-current="true"],
+.rail .rail-link[aria-current="page"],
 .exp-card .ico,
 .contact-card .ico,
 .tools button:hover,

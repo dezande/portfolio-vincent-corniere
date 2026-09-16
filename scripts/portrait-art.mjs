@@ -2,8 +2,8 @@
  * Portrait de l'accueil : Vincent en magicien, affiche d'inspiration Art nouveau et Art déco.
  *  - Art nouveau : médaillon circulaire perlé derrière la tête, tiges en coup de fouet,
  *    feuilles et fleurs stylisées.
- *  - Art déco : visage au trait fin et symétrique, haut-de-forme géométrique à chevrons,
- *    revers et nœud papillon anguleux, étoile rayonnante au bout de la baguette.
+ *  - Art déco : visage au trait fin et symétrique, revers et nœud papillon anguleux,
+ *    étoile rayonnante au bout de la baguette.
  * Composition et dessin originaux. Traits de Vincent : cheveux gris-blanc attachés en arrière, lunettes rondes fines, visage rasé, anneau à
  * l'oreille, expression calme. Chemise blanche de soirée.
  * Usage : node scripts/portrait-art.mjs  → public/img/portrait.svg
@@ -59,10 +59,6 @@ const tendrils = (mirror) => {
   return mirror ? `<g transform="translate(${W} 0) scale(-1 1)">${g}</g>` : `<g>${g}</g>`;
 };
 
-
-// --- Chevrons du ruban du chapeau (contenus dans la largeur du ruban) -------------------
-let hatChevrons = "";
-for (let x = 310; x + 30 <= 492; x += 30) hatChevrons += `<path d="M${x} 332 L${x + 15} 318 L${x + 30} 332" fill="none" stroke="${GOLD}" stroke-width="3" stroke-linejoin="miter"/>`;
 
 // --- Étoile déco de la baguette ---------------------------------------------------------
 const decoStar = (x, y, r) => {
@@ -135,12 +131,13 @@ ${tendrils(true)}
 <path d="M532 500 C556 494 562 552 538 576" fill="${SKIN}" stroke="${INK}" stroke-width="4"/>
 
 <!-- Visage au trait -->
-<path d="M400 356 C486 356 534 414 534 508 C534 606 482 700 400 700 C318 700 266 606 266 508 C266 414 314 356 400 356 Z" fill="${SKIN}" stroke="${INK}" stroke-width="5"/>
+<!-- Cheveux tirés en arrière, visibles sur les côtés du crâne ; dessus dégarni -->
+<path d="M270 530 C256 470 262 420 290 382 C302 368 316 360 330 356 C306 396 290 446 286 530 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>
+<path d="M530 530 C544 470 538 420 510 382 C498 368 484 360 470 356 C494 396 510 446 514 530 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>
+<path d="M400 326 C492 326 536 404 534 508 C534 606 482 700 400 700 C318 700 266 606 266 508 C264 404 308 326 400 326 Z" fill="${SKIN}" stroke="${INK}" stroke-width="5"/>
 
-<!-- Tempes : cheveux plaqués et tirés vers l'arrière, front dégagé -->
-<path d="M314 374 C292 390 278 418 272 462 C284 438 300 418 322 404 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
-<path d="M486 374 C508 390 522 418 528 462 C516 438 500 418 478 404 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
-<path d="M306 388 C292 402 282 422 278 446 M494 388 C508 402 518 422 522 446" fill="none" stroke="${HAIR_S}" stroke-width="2" stroke-linecap="round"/>
+<!-- Quelques fins cheveux gris sur le dessus du crâne, tirés vers l'arrière -->
+<path d="M332 348 C366 334 434 334 468 348 M348 338 C380 328 420 328 452 338 M300 400 C308 380 318 366 332 356 M500 400 C492 380 482 366 468 356" fill="none" stroke="${HAIR_S}" stroke-width="2" stroke-linecap="round" opacity=".75"/>
 
 <!-- Anneau à l'oreille gauche -->
 <circle cx="258" cy="588" r="11" fill="none" stroke="${GOLD}" stroke-width="4"/>
@@ -171,26 +168,6 @@ ${tendrils(true)}
 <path d="M358 640 C380 654 420 654 442 640" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
 <path d="M378 664 C392 672 408 672 422 664" fill="none" stroke="#b07a62" stroke-width="4" stroke-linecap="round"/>
 <path d="M352 634 Q355 641 360 644 M448 634 Q445 641 440 644" fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
-
-<!-- Haut-de-forme : calotte haute aux flancs cintrés, dessus ovale, bord relevé -->
-<g transform="rotate(-4 400 380)">
-  <!-- Calotte -->
-  <!-- La calotte descend sous le bord relevé : aucun jour entre le chapeau et la tête -->
-  <path d="M294 396 C304 290 300 206 288 138 L512 138 C500 206 496 290 506 396 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
-  <!-- Reflet satiné -->
-  <path d="M332 150 C340 210 342 280 336 380" fill="none" stroke="${GOLD_L}" stroke-width="5" stroke-linecap="round" opacity=".22"/>
-  <path d="M470 150 C464 210 462 280 468 380" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".35"/>
-  <!-- Dessus ovale -->
-  <ellipse cx="400" cy="138" rx="112" ry="22" fill="#2a211d" stroke="${GOLD}" stroke-width="3"/>
-  <!-- Bandeau noir souligné de filets dorés, qui suit la courbe du chapeau -->
-  <path d="M299 300 C360 314 440 314 501 300 L503 338 C440 352 360 352 297 338 Z" fill="${INK}"/>
-  <path d="M299 300 C360 314 440 314 501 300 M297 338 C360 352 440 352 503 338" fill="none" stroke="${GOLD}" stroke-width="2.5"/>
-  <path d="M298 307 C360 321 440 321 502 307 M297 331 C360 345 440 345 503 331" fill="none" stroke="${GOLD}" stroke-width="1" opacity=".7"/>
-  ${hatChevrons}
-  <!-- Bord relevé sur les côtés -->
-  <path d="M168 356 C186 326 232 346 268 356 C334 374 466 374 532 356 C568 346 614 326 632 356 C626 398 540 410 400 410 C260 410 174 398 168 356 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M206 360 C270 386 530 386 594 360" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".6"/>
-</g>
 
 <!-- Baguette et étoile déco -->
 <path d="M560 1090 L690 880" stroke="${INK}" stroke-width="16" stroke-linecap="round"/>

@@ -175,10 +175,11 @@ ${tendrils(true)}
 <!-- Haut-de-forme : calotte haute aux flancs cintrés, dessus ovale, bord relevé -->
 <g transform="rotate(-4 400 380)">
   <!-- Calotte -->
-  <path d="M296 360 C304 270 300 200 288 138 L512 138 C500 200 496 270 504 360 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
+  <!-- La calotte descend sous le bord relevé : aucun jour entre le chapeau et la tête -->
+  <path d="M294 396 C304 290 300 206 288 138 L512 138 C500 206 496 290 506 396 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
   <!-- Reflet satiné -->
-  <path d="M332 150 C340 210 342 280 336 350" fill="none" stroke="${GOLD_L}" stroke-width="5" stroke-linecap="round" opacity=".22"/>
-  <path d="M470 150 C464 210 462 280 468 350" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".35"/>
+  <path d="M332 150 C340 210 342 280 336 380" fill="none" stroke="${GOLD_L}" stroke-width="5" stroke-linecap="round" opacity=".22"/>
+  <path d="M470 150 C464 210 462 280 468 380" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".35"/>
   <!-- Dessus ovale -->
   <ellipse cx="400" cy="138" rx="112" ry="22" fill="#2a211d" stroke="${GOLD}" stroke-width="3"/>
   <!-- Ruban qui suit la courbe du chapeau -->

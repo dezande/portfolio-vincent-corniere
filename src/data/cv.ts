@@ -19,6 +19,8 @@ export const profile = {
   /** CV PDF généré depuis ces mêmes données (npm run cv → public/cv/) */
   cv: asset("cv/cv-vincent-corniere.pdf"),
   email: "vincent.corniere@gmail.com",
+  /** Adresse publique du portfolio (GitHub Pages) */
+  website: "https://dezande.github.io/portfolio-vincent-corniere/",
   location: "Paris",
   availability: "Non disponible",
 };

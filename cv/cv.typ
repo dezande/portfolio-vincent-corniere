@@ -117,11 +117,19 @@
   #divider(width: 90mm)
   #v(6pt)
   #set text(size: 11pt, fill: muted)
-  #contact("pin", d.profile.location) #gap
-  #contact("mail", link("mailto:" + d.profile.email)[#d.profile.email]) #gap
-  #contact("calendar", [Disponibilité : #d.profile.availability])
-  #v(1pt)
-  #d.socials.map(so => contact(lower(so.label), link(so.url)[#so.url.replace("https://", "").replace("www.", "").trim("/", at: end)])).join(gap)
+  #let short(url) = url.replace("https://", "").replace("www.", "").trim("/", at: end)
+  // Coordonnées en grille : deux colonnes alignées, centrées sous le titre
+  #box(grid(
+    columns: (auto, auto),
+    column-gutter: 34pt,
+    row-gutter: 8pt,
+    align: left,
+    contact("pin", d.profile.location),
+    contact("mail", link("mailto:" + d.profile.email)[#d.profile.email]),
+    contact("home", link(d.profile.website)[#short(d.profile.website)]),
+    ..d.socials.map(so => contact(lower(so.label), link(so.url)[#short(so.url)])),
+    contact("calendar", [Disponibilité : #d.profile.availability]),
+  ))
 ]
 
 // ============================================================================
@@ -143,7 +151,7 @@
 //  Compétences — « Libellé : valeurs », comme dans le CV d'origine
 // ============================================================================
 #section("Compétences", icon-name: "grid")
-#block(breakable: false, list(..d.skillGroups.map(g => [#text(font: f-title, weight: 700, size: 11pt)[#g.k :] #h(2pt) #text(size: 12pt)[#g.v]])))
+#list(..d.skillGroups.map(g => [#text(font: f-title, weight: 700, size: 11pt)[#g.k :] #h(2pt) #text(size: 12pt)[#g.v]]))
 
 // ============================================================================
 //  Formations

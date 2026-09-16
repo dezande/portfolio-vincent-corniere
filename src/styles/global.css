@@ -680,7 +680,8 @@ input, textarea { font: inherit; }
    Contact
    ============================================================ */
 .contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px; }
-.contact-actions { display: flex; justify-content: center; margin-top: 36px; }
+.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 36px; }
+.about-actions { margin-top: 26px; }
 .contact-card { display: flex; align-items: center; gap: 20px; padding: 18px 22px; }
 .contact-card .ico { display: grid; place-items: center; flex: none; width: 40px; height: 40px; margin: 0 4px; font-size: 19px; color: var(--bg); background: var(--gold); transform: rotate(45deg); }
 .contact-card .ico svg { transform: rotate(-45deg); }

@@ -24,6 +24,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # CV : généré depuis src/data/cv.ts à chaque déploiement, puis inclus dans le site (public/cv/)
+      - name: Installer Typst
+        run: |
+          curl -fsSL https://github.com/typst/typst/releases/download/v0.15.1/typst-x86_64-unknown-linux-musl.tar.xz | tar -xJ
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
+          typst --version
+      - run: npm run cv
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -46,6 +46,16 @@ Accueil · À propos · Parcours · Entreprises · Projets · Contact
   Le point de branchement est commenté dans `src/sections/Contact.tsx`.
 - **Compléter les liens sociaux** : `socials` dans `src/data/cv.ts`.
 
+## CV imprimable
+
+Le dossier `cv/` génère un CV PDF en Typst à partir des mêmes données (`src/data/cv.ts`) :
+
+```bash
+npm run cv
+```
+
+Voir [cv/README.md](cv/README.md).
+
 ## Pile technique
 
 React 19, TypeScript, Vite, Framer Motion, react-icons. Pas de framework CSS : une feuille

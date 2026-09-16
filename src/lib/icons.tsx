@@ -20,6 +20,7 @@ export const icons: Record<string, AnyIcon> = {
   // Boutons
   right: Wand,
   send: Quill,
+  download: Scroll,
   close: DecoClose,
   sun: DecoSun,
   moon: StarMoon,

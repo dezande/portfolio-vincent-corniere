@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# CV PDF générés par npm run cv
+public/cv/

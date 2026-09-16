@@ -12,9 +12,12 @@ export const profile = {
   fullName: "Vincent Cornière",
   role: "Développeur Ruby on Rails",
   roleLong: "Développeur web back-end",
+  specialty: "Ruby on Rails",
   intro:
     "Depuis 2015, je conçois des applications SaaS et je les accompagne jusqu'en production : architecture, données, intégrations SSO et infrastructure AWS.",
   photo: asset("img/portrait.svg"),
+  /** CV PDF généré depuis ces mêmes données (npm run cv → public/cv/) */
+  cv: asset("cv/cv-vincent-corniere.pdf"),
   email: "vincent.corniere@gmail.com",
   location: "Paris",
   availability: "Non disponible",

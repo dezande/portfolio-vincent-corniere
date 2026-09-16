@@ -1,6 +1,7 @@
 import PageHead from "../components/PageHead";
+import Pill from "../components/Pill";
 import { Icon } from "../lib/icons";
-import { about, expertise } from "../data/cv";
+import { about, expertise, profile } from "../data/cv";
 import { useCountUp } from "../hooks/useCountUp";
 
 function Counter({ num, suffix, lbl }: { num: number; suffix: string; lbl: string }) {
@@ -33,6 +34,12 @@ export default function About() {
           {about.paragraphs.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
+
+          <div className="about-actions">
+            <Pill icon="download" href={profile.cv} download>
+              Télécharger le CV
+            </Pill>
+          </div>
         </div>
 
         <div>

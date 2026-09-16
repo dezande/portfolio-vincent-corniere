@@ -32,6 +32,9 @@ export default function Contact() {
         <Pill icon="send" href={`mailto:${profile.email}`}>
           M'écrire
         </Pill>
+        <Pill icon="download" href={profile.cv} download>
+          Télécharger le CV
+        </Pill>
       </div>
 
       <h3 className="h3" style={{ marginTop: 48 }}>

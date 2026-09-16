@@ -128,7 +128,23 @@
 #let contact(name, body) = box[#icon(name, size: 12pt) #h(3pt) #body]
 #let gap = h(16pt)
 
+// Portrait du site en médaillon : cadré sur le visage et le chapeau, petit pour limiter l'encre.
+// L'image est lue directement dans public/img/ : même portrait que la page d'accueil.
+#let portrait-medal(size: 40mm) = {
+  // Le portrait fait 800 × 1100 ; on cadre un carré x 90–710, y 105–725 (du haut du chapeau au menton).
+  let scale = size / 620
+  box(width: size + 8pt, height: size + 8pt, {
+    place(center + horizon, circle(radius: size / 2 + 3.5pt, stroke: 0.8pt + gold))
+    place(center + horizon, box(width: size, height: size, radius: size / 2, clip: true,
+      place(top + left, dx: -90 * scale, dy: -105 * scale,
+        image("../public/img/portrait.svg", width: 800 * scale, height: 1100 * scale))))
+    place(center + horizon, circle(radius: size / 2 + 0.6pt, stroke: 0.3pt + gold))
+  })
+}
+
 #align(center)[
+  #portrait-medal()
+  #v(4pt)
   #text(font: f-title, weight: 600, size: 12.5pt, tracking: 5pt, fill: gold)[#star(r: 2.8pt) #h(8pt) #upper(d.profile.fullName) #h(8pt) #star(r: 2.6pt)]
   #v(4pt)
   #text(font: f-display, weight: 900, size: 29pt, fill: ink)[#d.profile.roleLong.replace("-", "\u{2011}")]

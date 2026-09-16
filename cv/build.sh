@@ -11,7 +11,8 @@ command -v node >/dev/null || { echo "Node.js est requis pour lire les données 
 node scripts/export-data.mjs ..
 ./scripts/fetch-fonts.sh
 
-typst compile --font-path fonts cv.typ cv-vincent-corniere.pdf
+# --root .. : le CV lit le portrait du site (public/img/portrait.svg), sans copie.
+typst compile --root .. --font-path fonts cv.typ cv-vincent-corniere.pdf
 echo "✦ cv-vincent-corniere.pdf"
 
 # Copie dans public/cv/ : le site propose le téléchargement, Vite l'inclut au build.

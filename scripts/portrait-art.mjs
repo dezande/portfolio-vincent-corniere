@@ -4,8 +4,7 @@
  *    feuilles et fleurs stylisées.
  *  - Art déco : visage au trait fin et symétrique, haut-de-forme géométrique à chevrons,
  *    revers et nœud papillon anguleux, étoile rayonnante au bout de la baguette.
- * Composition et dessin originaux. Traits de Vincent : cheveux gris-blanc tirés en arrière
- * en longue queue de cheval, lunettes rondes fines, visage rasé, anneau à
+ * Composition et dessin originaux. Traits de Vincent : cheveux gris-blanc attachés en arrière, lunettes rondes fines, visage rasé, anneau à
  * l'oreille, expression calme. Chemise blanche de soirée.
  * Usage : node scripts/portrait-art.mjs  → public/img/portrait.svg
  */
@@ -61,9 +60,9 @@ const tendrils = (mirror) => {
 };
 
 
-// --- Chevrons du bandeau du chapeau ---------------------------------------------------
-let chevrons = "";
-for (let x = 286; x < 516; x += 34) chevrons += `<path d="M${x} 316 L${x + 17} 300 L${x + 34} 316" fill="none" stroke="${GOLD}" stroke-width="3"/>`;
+// --- Chevrons du ruban du chapeau (contenus dans la largeur du ruban) -------------------
+let hatChevrons = "";
+for (let x = 310; x + 30 <= 492; x += 30) hatChevrons += `<path d="M${x} 332 L${x + 15} 318 L${x + 30} 332" fill="none" stroke="${GOLD}" stroke-width="3" stroke-linejoin="miter"/>`;
 
 // --- Étoile déco de la baguette ---------------------------------------------------------
 const decoStar = (x, y, r) => {
@@ -99,11 +98,12 @@ ${tendrils(false)}
 ${tendrils(true)}
 
 
-<!-- Cheveux gris-blanc tirés en arrière : masse visible derrière les oreilles -->
+<!-- Cheveux attachés en arrière : plaqués derrière les oreilles, queue de cheval derrière la nuque -->
 <g>
-  <path d="M302 372 C252 392 228 450 226 540 C224 620 216 690 198 742 C232 738 262 718 280 692 C272 640 268 580 272 520 C276 470 288 420 302 372 Z" fill="${HAIR}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M498 372 C548 392 572 450 574 540 C576 620 584 690 602 742 C568 738 538 718 520 692 C528 640 532 580 528 520 C524 470 512 420 498 372 Z" fill="${HAIR}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M258 430 C244 490 242 570 246 640 C248 680 240 706 226 726 M542 430 C556 490 558 570 554 640 C552 680 560 706 574 726" fill="none" stroke="${HAIR_S}" stroke-width="3" stroke-linecap="round"/>
+  <path d="M304 378 C272 398 252 438 248 498 C246 540 252 572 266 596 C276 562 280 522 286 482 C290 444 296 412 304 378 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M496 378 C528 398 548 438 552 498 C554 540 548 572 534 596 C524 562 520 522 514 482 C510 444 504 412 496 378 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M452 648 C486 676 508 722 514 792 L474 800 C472 748 462 700 440 664 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M458 670 C480 700 494 740 496 790" fill="none" stroke="${HAIR_S}" stroke-width="2.5" stroke-linecap="round"/>
 </g>
 
 <!-- Habit : épaules et revers anguleux -->
@@ -126,11 +126,6 @@ ${tendrils(true)}
 <path d="M400 774 L416 790 L400 806 L384 790 Z" fill="${GOLD}" stroke="${INK}" stroke-width="2"/>
 
 
-<!-- Longue queue de cheval qui retombe sur l'épaule, en coup de fouet -->
-<path d="M506 660 C550 706 576 766 574 836 C572 890 590 930 620 960 C592 964 560 942 546 908 C530 866 532 806 516 756 C508 726 498 698 490 676 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>
-<path d="M512 690 C540 736 556 790 554 846 C554 884 566 916 590 944 M500 700 C520 750 530 800 530 850" fill="none" stroke="${HAIR_S}" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M494 676 L522 652 L534 668 L506 692 Z" fill="${GOLD}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
-
 <!-- Cou -->
 <path d="M360 672 L440 672 L446 770 L400 790 L354 770 Z" fill="${SKIN}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>
 <path d="M372 740 Q400 756 428 740" fill="none" stroke="${INK}" stroke-width="2" opacity=".5"/>
@@ -142,9 +137,10 @@ ${tendrils(true)}
 <!-- Visage au trait -->
 <path d="M400 356 C486 356 534 414 534 508 C534 606 482 700 400 700 C318 700 266 606 266 508 C266 414 314 356 400 356 Z" fill="${SKIN}" stroke="${INK}" stroke-width="5"/>
 
-<!-- Tempes : cheveux tirés vers l'arrière, front dégagé -->
-<path d="M312 374 C290 392 276 420 270 466 C282 440 298 420 318 406 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
-<path d="M488 374 C510 392 524 420 530 466 C518 440 502 420 482 406 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
+<!-- Tempes : cheveux plaqués et tirés vers l'arrière, front dégagé -->
+<path d="M314 374 C292 390 278 418 272 462 C284 438 300 418 322 404 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
+<path d="M486 374 C508 390 522 418 528 462 C516 438 500 418 478 404 Z" fill="${HAIR}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
+<path d="M306 388 C292 402 282 422 278 446 M494 388 C508 402 518 422 522 446" fill="none" stroke="${HAIR_S}" stroke-width="2" stroke-linecap="round"/>
 
 <!-- Anneau à l'oreille gauche -->
 <circle cx="258" cy="588" r="11" fill="none" stroke="${GOLD}" stroke-width="4"/>
@@ -176,13 +172,21 @@ ${tendrils(true)}
 <path d="M378 664 C392 672 408 672 422 664" fill="none" stroke="#b07a62" stroke-width="4" stroke-linecap="round"/>
 <path d="M352 634 Q355 641 360 644 M448 634 Q445 641 440 644" fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
 
-<!-- Haut-de-forme géométrique -->
-<g transform="rotate(-4 400 368)">
-  <path d="M288 120 L512 120 L524 360 L276 360 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="miter"/>
-  <path d="M310 136 L318 344 M490 136 L482 344" stroke="${GOLD}" stroke-width="1.5" opacity=".5"/>
-  <rect x="279" y="292" width="242" height="34" fill="${RED}" stroke="${GOLD}" stroke-width="2.5"/>
-  ${chevrons}
-  <path d="M184 372 C240 350 560 350 616 372 C560 392 240 392 184 372 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3"/>
+<!-- Haut-de-forme : calotte haute aux flancs cintrés, dessus ovale, bord relevé -->
+<g transform="rotate(-4 400 380)">
+  <!-- Calotte -->
+  <path d="M296 360 C304 270 300 200 288 138 L512 138 C500 200 496 270 504 360 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Reflet satiné -->
+  <path d="M332 150 C340 210 342 280 336 350" fill="none" stroke="${GOLD_L}" stroke-width="5" stroke-linecap="round" opacity=".22"/>
+  <path d="M470 150 C464 210 462 280 468 350" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".35"/>
+  <!-- Dessus ovale -->
+  <ellipse cx="400" cy="138" rx="112" ry="22" fill="#2a211d" stroke="${GOLD}" stroke-width="3"/>
+  <!-- Ruban qui suit la courbe du chapeau -->
+  <path d="M299 300 C360 314 440 314 501 300 L503 338 C440 352 360 352 297 338 Z" fill="${RED}" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round"/>
+  ${hatChevrons}
+  <!-- Bord relevé sur les côtés -->
+  <path d="M168 356 C186 326 232 346 268 356 C334 374 466 374 532 356 C568 346 614 326 632 356 C626 398 540 410 400 410 C260 410 174 398 168 356 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M206 360 C270 386 530 386 594 360" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".6"/>
 </g>
 
 <!-- Baguette et étoile déco -->

@@ -99,8 +99,8 @@ input, textarea { font: inherit; }
 }
 [data-theme="light"] .app {
   background:
-    radial-gradient(120% 90% at 60% 40%, transparent 55%, rgba(94, 60, 20, 0.22) 100%),
-    radial-gradient(60% 70% at 72% 45%, rgba(155, 28, 28, 0.1), transparent 70%),
+    radial-gradient(130% 100% at 55% 45%, transparent 65%, rgba(140, 100, 40, 0.1) 100%),
+    radial-gradient(60% 70% at 72% 45%, rgba(155, 28, 28, 0.08), transparent 70%),
     var(--bg);
 }
 
@@ -117,10 +117,19 @@ input, textarea { font: inherit; }
 
 /* Double filet doré autour de la page */
 .frame { position: fixed; inset: var(--frame); z-index: 80; pointer-events: none; color: var(--gold); }
-.frame::before, .frame::after { content: ""; position: absolute; border: 1px solid var(--gold); }
+.frame { --gap: 64px; }
+.frame::before, .frame::after {
+  content: "";
+  position: absolute;
+  background:
+    linear-gradient(var(--gold), var(--gold)) center top / calc(100% - var(--gap)) 1px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) center bottom / calc(100% - var(--gap)) 1px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left center / 1px calc(100% - var(--gap)) no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right center / 1px calc(100% - var(--gap)) no-repeat;
+}
 .frame::before { inset: 0; }
 .frame::after { inset: 6px; opacity: 0.45; }
-.frame > span { position: absolute; display: block; width: 72px; height: 72px; padding: 5px; background: var(--bg); }
+.frame > span { position: absolute; display: block; width: 72px; height: 72px; padding: 5px; }
 .frame .orn-corner { display: block; width: 100%; height: 100%; }
 .frame .c-tl { top: -8px; left: -8px; }
 .frame .c-tr { top: -8px; right: -8px; }
@@ -464,7 +473,7 @@ input, textarea { font: inherit; }
   width: 46px;
   height: 46px;
   margin: 4px 0 20px 4px;
-  font-size: 18px;
+  font-size: 21px;
   color: var(--bg);
   background: var(--gold);
   transform: rotate(45deg);
@@ -602,7 +611,7 @@ input, textarea { font: inherit; }
 .contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; align-items: start; }
 .contact-cards { display: grid; gap: 14px; }
 .contact-card { display: flex; align-items: center; gap: 20px; padding: 18px 22px; }
-.contact-card .ico { display: grid; place-items: center; flex: none; width: 40px; height: 40px; margin: 0 4px; font-size: 16px; color: var(--bg); background: var(--gold); transform: rotate(45deg); }
+.contact-card .ico { display: grid; place-items: center; flex: none; width: 40px; height: 40px; margin: 0 4px; font-size: 19px; color: var(--bg); background: var(--gold); transform: rotate(45deg); }
 .contact-card .ico svg { transform: rotate(-45deg); }
 .contact-card .k { font-family: var(--font-title); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
 .contact-card .v { font-size: 18px; overflow-wrap: anywhere; }
@@ -633,6 +642,7 @@ input, textarea { font: inherit; }
   :root { --rail-w: 0px; --footer-h: 116px; --frame: 8px; }
 
   .app { grid-template-columns: minmax(0, 1fr); }
+  .frame { --gap: 40px; }
   .frame > span { width: 44px; height: 44px; padding: 3px; }
 
   .rail {
@@ -678,3 +688,15 @@ input, textarea { font: inherit; }
   .rail { gap: 5px; padding: 6px 10px; }
   .rail button { width: 40px; height: 40px; }
 }
+
+/* Pictogrammes dessinés main : trait fin et régulier */
+.mi { display: inline-block; width: 1.15em; height: 1.15em; flex: none; vertical-align: -0.2em; overflow: visible; }
+.rail .mi { width: 1.3em; height: 1.3em; }
+/* Couleur « creuse » des pictogrammes = fond réel du support */
+.rail button[aria-current="true"],
+.pill .dot,
+.exp-card .ico,
+.contact-card .ico,
+.tools button:hover,
+.modal .close { --icon-bg: var(--gold); }
+.pill:hover .dot { --icon-bg: var(--crimson); }

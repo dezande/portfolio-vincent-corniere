@@ -1,14 +1,15 @@
 /**
  * Portrait de l'accueil : Vincent en magicien, illustration vectorielle originale dans le style
  * des affiches du site (fond rouge sang, soleil rayonnant, or). Traits repris de sa photo :
- * cheveux courts châtain clair, lunettes rectangulaires foncées, sourire. Chemise blanche sous l'habit.
+ * Traits repris de sa photo : cheveux longs ondulés détachés, lunettes rondes fines, anneau,
+ * visage rasé, regard calme. Chemise blanche sous l'habit.
  * Usage : node scripts/portrait-art.mjs  → public/img/portrait.svg
  */
 import { writeFileSync } from "node:fs";
 
 const W = 800, H = 1100, CX = 400;
 const GOLD = "#c9a24a", GOLD_L = "#e9d18f", RED = "#9b1c1c", RED_D = "#5e0f10", INK = "#0d0a09";
-const SKIN = "#efc6a4", SKIN_S = "#d9a684", HAIR = "#a37f58", HAIR_D = "#7d5f3f";
+const SKIN = "#efc6a4", SKIN_S = "#d9a684", HAIR = "#a88c69", HAIR_D = "#7d644a", HAIR_G = "#cfc3b0";
 const NAVY = "#1f2b45", CREAM = "#f1e6cf", COAT = "#161212";
 
 const spark = (x, y, r, fill = GOLD_L, op = 1) =>
@@ -55,6 +56,13 @@ ${rays}
   <path d="M400 760 L340 732 L340 796 Z M400 760 L460 732 L460 796 Z" fill="${RED}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
   <circle cx="400" cy="762" r="14" fill="${GOLD}"/>
 
+  <!-- Cheveux longs ondulés, détachés, châtain clair mêlé de gris, boucles aux pointes -->
+  <path d="M270 368 C218 396 196 450 210 500 C224 548 188 578 200 628 C212 676 178 704 192 752 C204 796 184 818 204 846 C226 868 262 850 262 822 C262 800 244 798 246 780 C260 770 280 752 280 724 C280 690 258 672 270 640 C282 608 268 574 280 540 C292 504 276 470 290 430 Z" fill="${HAIR}"/>
+  <path d="M530 368 C582 396 604 450 590 500 C576 548 612 578 600 628 C588 676 622 704 608 752 C596 796 616 818 596 846 C574 868 538 850 538 822 C538 800 556 798 554 780 C540 770 520 752 520 724 C520 690 542 672 530 640 C518 608 532 574 520 540 C508 504 524 470 510 430 Z" fill="${HAIR}"/>
+  <path d="M244 420 C222 460 238 500 226 540 C214 580 236 620 222 660 C210 700 232 740 220 780 M266 470 C250 510 266 550 254 590 C244 630 264 670 252 710" fill="none" stroke="${HAIR_G}" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+  <path d="M556 420 C578 460 562 500 574 540 C586 580 564 620 578 660 C590 700 568 740 580 780 M534 470 C550 510 534 550 546 590 C556 630 536 670 548 710" fill="none" stroke="${HAIR_G}" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+  <path d="M212 812 C222 838 250 836 252 818 M588 812 C578 838 550 836 548 818 M214 600 C204 620 214 640 208 660 M586 600 C596 620 586 640 592 660" fill="none" stroke="${HAIR_D}" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+
   <!-- Cou -->
   <path d="M352 650 L448 650 L452 742 Q400 770 348 742 Z" fill="${SKIN_S}"/>
 
@@ -62,34 +70,36 @@ ${rays}
   <ellipse cx="253" cy="548" rx="24" ry="42" fill="${SKIN_S}"/>
   <ellipse cx="547" cy="548" rx="24" ry="42" fill="${SKIN_S}"/>
 
+  <!-- Anneau à l'oreille gauche -->
+  <circle cx="250" cy="592" r="11" fill="none" stroke="${GOLD}" stroke-width="4"/>
+
   <!-- Visage -->
   <path d="M400 350 C505 350 555 420 555 525 C555 640 490 712 400 712 C310 712 245 640 245 525 C245 420 295 350 400 350 Z" fill="url(#face)"/>
-
-  <!-- Cheveux courts aux tempes, sous le chapeau -->
-  <path d="M252 452 C250 400 280 372 318 362 L300 420 C286 440 270 470 262 510 Z" fill="${HAIR}"/>
-  <path d="M548 452 C550 400 520 372 482 362 L500 420 C514 440 530 470 538 510 Z" fill="${HAIR}"/>
 
   <!-- Sourcils -->
   <path d="M296 466 Q336 446 378 462" fill="none" stroke="${HAIR_D}" stroke-width="9" stroke-linecap="round"/>
   <path d="M422 462 Q464 446 504 466" fill="none" stroke="${HAIR_D}" stroke-width="9" stroke-linecap="round"/>
 
-  <!-- Yeux souriants -->
-  <path d="M320 520 Q338 506 356 520" fill="none" stroke="#3a2a20" stroke-width="7" stroke-linecap="round"/>
-  <path d="M444 520 Q462 506 480 520" fill="none" stroke="#3a2a20" stroke-width="7" stroke-linecap="round"/>
+  <!-- Yeux ouverts, regard calme -->
+  <ellipse cx="338" cy="515" rx="15" ry="10" fill="#fbf4ea"/>
+  <ellipse cx="462" cy="515" rx="15" ry="10" fill="#fbf4ea"/>
+  <circle cx="338" cy="515" r="8" fill="#6f7a4c"/><circle cx="462" cy="515" r="8" fill="#6f7a4c"/>
+  <circle cx="338" cy="515" r="4" fill="#2a2016"/><circle cx="462" cy="515" r="4" fill="#2a2016"/>
+  <circle cx="341" cy="512" r="2" fill="#fff"/><circle cx="465" cy="512" r="2" fill="#fff"/>
+  <path d="M322 509 Q338 500 354 509 M446 509 Q462 500 478 509" fill="none" stroke="#3a2a20" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- Lunettes rectangulaires foncées -->
-  <rect x="284" y="482" width="104" height="66" rx="14" fill="${GOLD_L}" fill-opacity=".08" stroke="#2a2522" stroke-width="10"/>
-  <rect x="412" y="482" width="104" height="66" rx="14" fill="${GOLD_L}" fill-opacity=".08" stroke="#2a2522" stroke-width="10"/>
-  <path d="M388 506 Q400 496 412 506" fill="none" stroke="#2a2522" stroke-width="8"/>
-  <path d="M284 500 L252 512 M516 500 L548 512" stroke="#2a2522" stroke-width="8" stroke-linecap="round"/>
+  <!-- Lunettes rondes à monture fine -->
+  <circle cx="338" cy="515" r="52" fill="${GOLD_L}" fill-opacity=".06" stroke="#2a2522" stroke-width="6"/>
+  <circle cx="462" cy="515" r="52" fill="${GOLD_L}" fill-opacity=".06" stroke="#2a2522" stroke-width="6"/>
+  <path d="M390 508 Q400 498 410 508" fill="none" stroke="#b9a37a" stroke-width="5"/>
+  <path d="M286 506 L252 516 M514 506 L548 516" stroke="#b9a37a" stroke-width="5" stroke-linecap="round"/>
 
   <!-- Nez -->
   <path d="M402 548 Q386 598 392 608 Q404 616 418 606" fill="none" stroke="${SKIN_S}" stroke-width="7" stroke-linecap="round"/>
 
-  <!-- Sourire -->
-  <path d="M338 636 Q400 692 462 636 Q400 660 338 636 Z" fill="#6b2323"/>
-  <path d="M348 640 Q400 664 452 640 Q400 652 348 640 Z" fill="#fbf4ea"/>
-  <path d="M336 634 Q400 700 464 634" fill="none" stroke="#b77c62" stroke-width="4" stroke-linecap="round"/>
+  <!-- Bouche calme, léger sourire -->
+  <path d="M360 652 C384 666 416 666 440 652" fill="none" stroke="#9a4b43" stroke-width="7" stroke-linecap="round"/>
+  <path d="M376 668 C392 674 408 674 424 668" fill="none" stroke="#c98b7a" stroke-width="4" stroke-linecap="round" opacity=".7"/>
 
   <!-- Joues -->
   <ellipse cx="300" cy="600" rx="30" ry="18" fill="#e79a86" opacity=".35"/>

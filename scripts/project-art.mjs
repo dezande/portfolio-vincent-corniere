@@ -1,6 +1,7 @@
 /**
  * Génère les visuels des projets (public/img/work-*.svg) : une affichette par projet,
  * fond à la couleur de l'entreprise (comme les cartes de Parcours), objet dessiné au centre.
+ * Pas de cadre dans l'image : la vignette (.work-card) porte déjà le cadre doré, qui s'anime au survol.
  * Dessins originaux — aucun logo de client.  Usage : node scripts/project-art.mjs
  */
 import { writeFileSync } from "node:fs";
@@ -189,9 +190,6 @@ for (const w of WORKS) {
 ${rays()}
 <g filter="url(#shadow)">${OBJECTS[w.object]()}</g>
 ${star(190, 250, 16, GL, 0.7)}${star(720, 300, 11, GL, 0.6)}${star(700, 760, 14, GL, 0.55)}
-<rect x="26" y="26" width="${W - 52}" height="${H - 52}" fill="none" stroke="${G}" stroke-width="3"/>
-<rect x="40" y="40" width="${W - 80}" height="${H - 80}" fill="none" stroke="${G}" stroke-width="1.2" opacity=".6"/>
-${star(40, 40, 16, G)}${star(W - 40, 40, 16, G)}${star(40, H - 40, 16, G)}${star(W - 40, H - 40, 16, G)}
 <rect width="${W}" height="${H}" filter="url(#n)"/>
 </svg>`;
   writeFileSync(`public/img/${w.file}`, svg);

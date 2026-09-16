@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Pill from "./Pill";
 import TechTag from "./TechTag";
+import Monogram from "./Monogram";
 import { Divider } from "./Ornament";
 import { projects, type Company } from "../data/cv";
 
@@ -24,20 +25,13 @@ export default function CompanyCard({ company: c, index: i, onOpenProjects }: Pr
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 * i, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      <button
-        type="button"
-        className="bill"
-        onClick={() => onOpenProjects(c.name)}
-        aria-label={`${label} réalisés chez ${c.name}`}
-      >
+      <header className="bill">
         <span className="num">Acte {numerals[i]}</span>
+        <Monogram letters={c.monogram} />
         <h3>{c.name}</h3>
         <Divider width={140} />
         <span className="period">{c.period}</span>
-        <span className="bill-cta" aria-hidden="true">
-          {label} →
-        </span>
-      </button>
+      </header>
 
       <div className="body">
         <h4 className="role">{c.role}</h4>

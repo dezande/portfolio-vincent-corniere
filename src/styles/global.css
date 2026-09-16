@@ -738,23 +738,6 @@ input, textarea { font: inherit; }
 .filters-label { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-right: 6px; }
 .filters-count { margin: 6px 0 26px; text-align: center; font-style: italic; }
 
-/* Affiche d'entreprise cliquable */
-button.bill { font: inherit; width: 100%; cursor: pointer; transition: filter 0.35s var(--ease); }
-button.bill:hover { filter: brightness(1.15); }
-.company .bill .bill-cta {
-  margin-top: 10px;
-  padding: 3px 12px;
-  font-family: var(--font-title);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  border: 1px solid rgba(233, 209, 143, 0.5);
-  opacity: 0.75;
-  transition: opacity 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
-}
-button.bill:hover .bill-cta, button.bill:focus-visible .bill-cta { opacity: 1; color: var(--bg); background: var(--gold-light); }
 .company .body .pill { margin-top: 6px; }
 
 /* Étiquettes de technologie : pictogramme doré devant le libellé */
@@ -762,3 +745,30 @@ button.bill:hover .bill-cta, button.bill:focus-visible .bill-cta { opacity: 1; c
 .tech-ico { flex: none; width: 1.05em; height: 1.05em; color: var(--gold); }
 .tickets .tech-tag { padding-left: 14px; }
 .modal .tags .tech-tag .tech-ico { width: 1.25em; height: 1.25em; }
+
+/* Médaillon monogramme des entreprises */
+.monogram {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  margin: 6px 0 4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-light);
+  box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 6px rgba(233, 209, 143, 0.55), 0 0 0 4px rgba(0, 0, 0, 0.18);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.14), transparent 60%), rgba(0, 0, 0, 0.18);
+}
+.monogram-letters {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--gold-light);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+.monogram.long .monogram-letters { font-size: 23px; }
+.monogram-star { position: absolute; left: 50%; display: grid; place-items: center; width: 18px; height: 18px; color: var(--gold-light); transform: translateX(-50%); }
+.monogram-star.top { top: -9px; }
+.monogram-star.bottom { bottom: -9px; }

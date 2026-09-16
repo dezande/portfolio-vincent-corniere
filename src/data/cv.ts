@@ -294,6 +294,8 @@ export const interests = ["Cuisine", "Magie", "Jeux de plateau"];
 
 export type Company = {
   name: string;
+  /** Initiales gravées dans le médaillon (emblème du site, pas le logo officiel) */
+  monogram: string;
   period: string;
   role: string;
   kind: string;
@@ -307,6 +309,7 @@ export type Company = {
 export const companies: Company[] = [
   {
     name: "JobTeaser",
+    monogram: "JT",
     period: "Depuis avril 2018",
     role: "Développeur back-end SSO",
     kind: "Éditeur · Recrutement des jeunes diplômés",
@@ -323,6 +326,7 @@ export const companies: Company[] = [
   },
   {
     name: "Prium Solutions",
+    monogram: "PS",
     period: "Janvier 2016 — Avril 2018",
     role: "Développeur full-stack Ruby on Rails",
     kind: "ESN · Applications SaaS sur mesure",
@@ -354,6 +358,7 @@ export const companies: Company[] = [
   },
   {
     name: "CBM Web",
+    monogram: "CBM",
     period: "Mars 2015 — Décembre 2015",
     role: "Développeur full-stack Ruby on Rails",
     kind: "Agence web · SaaS et e-commerce",

@@ -1,54 +1,25 @@
+import { Fragment } from "react";
 import { motion } from "framer-motion";
+import CompanyCard from "../components/CompanyCard";
 import PageHead from "../components/PageHead";
-import { Divider } from "../components/Ornament";
-import TechTag from "../components/TechTag";
-import { education, experience, skillBars, skillGroups } from "../data/cv";
+import { Divider, Star } from "../components/Ornament";
+import { companies, education, partners, skillBars, skillGroups } from "../data/cv";
 
-const numerals = ["I", "II", "III", "IV", "V"];
-
-export default function Resume() {
+export default function Resume({ onOpenProjects }: { onOpenProjects: (company: string) => void }) {
   return (
     <div className="page scroll-area">
       <PageHead eyebrow="Parcours" title="Expérience & formation" />
 
-      {/* Expériences : une par rangée, date et entreprise à gauche, détail à droite */}
+      {/* Expériences : une affiche par entreprise */}
       <section className="res-block" aria-labelledby="res-xp">
         <h3 className="h3" id="res-xp">
           Expériences professionnelles
         </h3>
-
-        <ol className="xp-list">
-          {experience.map((x, i) => (
-            <motion.li
-              key={x.org}
-              className="xp"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.08 * i, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="xp-when">
-                <span className="xp-num">Acte {numerals[i]}</span>
-                <span className="xp-org">{x.org}</span>
-                <span className="xp-period">{x.period}</span>
-              </div>
-
-              <div className="xp-body">
-                <h4>{x.role}</h4>
-                <p className="xp-text">{x.text}</p>
-                <ul className="xp-bullets stars">
-                  {x.bullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
-                <div className="tickets muted xp-stack" aria-label="Environnement technique">
-                  {x.stack.split(", ").map((t) => (
-                    <TechTag key={t} name={t} />
-                  ))}
-                </div>
-              </div>
-            </motion.li>
+        <div className="companies">
+          {companies.map((c, i) => (
+            <CompanyCard key={c.name} company={c} index={i} onOpenProjects={onOpenProjects} />
           ))}
-        </ol>
+        </div>
       </section>
 
       {/* Formation : trois cartes côte à côte */}
@@ -111,6 +82,22 @@ export default function Resume() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      <section className="res-block" aria-labelledby="res-partners">
+        <h3 className="h3" id="res-partners">
+          Partenaires & services intégrés
+        </h3>
+        <div className="marquee-wall card-deco">
+          {partners.map((p, i) => (
+            <Fragment key={p}>
+              <span>
+                {i > 0 && <Star size={9} />}
+                {p}
+              </span>
+            </Fragment>
+          ))}
         </div>
       </section>
     </div>

@@ -514,28 +514,6 @@ input, textarea { font: inherit; }
 .res-block { margin-bottom: clamp(56px, 8vh, 88px); }
 .res-block:last-child { margin-bottom: 24px; }
 
-/* Expériences : une rangée par poste */
-.xp-list { margin: 0; padding: 0; list-style: none; }
-.xp {
-  display: grid;
-  grid-template-columns: minmax(180px, 250px) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 64px);
-  padding: 44px 0;
-  border-top: 1px solid var(--line);
-}
-.xp:first-child { padding-top: 8px; border-top: 0; }
-
-.xp-when { display: flex; flex-direction: column; gap: 8px; }
-.xp-num { font-family: var(--font-accent); font-size: 15px; letter-spacing: 0.3em; color: var(--gold-light); }
-.xp-org { font-family: var(--font-display); font-size: clamp(24px, 2.2vw, 32px); font-weight: 900; line-height: 1.05; text-transform: uppercase; color: var(--gold); text-shadow: 2px 2px 0 var(--crimson); }
-.xp-period { font-family: var(--font-title); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-
-.xp-body { max-width: 760px; }
-.xp-body h4 { font-size: 21px; letter-spacing: 0.02em; margin-bottom: 12px; }
-.xp-text { font-size: 18px; font-style: italic; line-height: 1.7; color: var(--text); margin-bottom: 20px; }
-.xp-bullets li { font-size: 17px; line-height: 1.65; color: var(--muted); margin-bottom: 10px; }
-.xp-stack { margin: 22px 0 0; }
-
 /* Formation : trois cartes */
 .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: clamp(16px, 2vw, 28px); }
 .edu { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 34px 26px 30px; text-align: center; }
@@ -625,6 +603,8 @@ input, textarea { font: inherit; }
 .company .role { font-family: var(--font-title); font-size: 18px; letter-spacing: 0.04em; margin-bottom: 2px; }
 .company .kind { font-family: var(--font-accent); font-size: 15px; letter-spacing: 0.12em; color: var(--gold-light); margin-bottom: 14px; }
 .company .desc { font-size: 17px; margin-bottom: 18px; }
+.company-bullets { margin: 0 0 20px; }
+.company-bullets li { font-size: 16px; line-height: 1.6; color: var(--muted); margin-bottom: 8px; }
 .company .label { font-family: var(--font-title); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 
 .tickets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
@@ -724,8 +704,6 @@ input, textarea { font: inherit; }
   .arch { width: min(70%, 300px); }
 
   .page { padding: 24px 18px 40px; }
-  .xp { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 36px 0; }
-  .xp-when { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
 
   .tools { top: calc(var(--frame) + 18px); right: calc(var(--frame) + 18px); transform: none; }
 }

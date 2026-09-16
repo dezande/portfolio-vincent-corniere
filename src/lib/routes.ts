@@ -6,23 +6,24 @@ import { companies } from "../data/cv";
  * Toute modification des slugs doit rester alignée avec scripts/pages-routes.mjs.
  */
 
-export const SCREENS = ["home", "about", "resume", "companies", "projects", "contact"] as const;
+export const SCREENS = ["home", "about", "resume", "projects", "contact"] as const;
 export type ScreenId = (typeof SCREENS)[number];
 
 export const SLUGS: Record<ScreenId, string> = {
   home: "",
   about: "a-propos",
   resume: "parcours",
-  companies: "entreprises",
   projects: "projets",
   contact: "contact",
 };
+
+/** Anciennes adresses → adresse actuelle */
+const LEGACY_SLUGS: Record<string, string> = { entreprises: "parcours" };
 
 const TITLES: Record<ScreenId, string> = {
   home: "",
   about: "À propos",
   resume: "Parcours",
-  companies: "Entreprises & clients",
   projects: "Projets",
   contact: "Contact",
 };
@@ -51,7 +52,9 @@ export function pathFor({ screen, company }: Route) {
 export function parsePath(pathname: string): Route {
   const rest = pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname.replace(/^\//, "");
   const [first = "", second = ""] = rest.split("/").filter(Boolean);
-  const screen = (Object.keys(SLUGS) as ScreenId[]).find((id) => SLUGS[id] === first) ?? "home";
+  // Ancienne page Entreprises, fusionnée dans Parcours : ses liens restent valides.
+  const slug = LEGACY_SLUGS[first] ?? first;
+  const screen = (Object.keys(SLUGS) as ScreenId[]).find((id) => SLUGS[id] === slug) ?? "home";
   const company = screen === "projects" && second ? companies.find((c) => slugify(c.name) === second)?.name ?? null : null;
   return { screen, company };
 }

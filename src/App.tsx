@@ -6,7 +6,6 @@ import { Icon } from "./lib/icons";
 import Home from "./sections/Home";
 import About from "./sections/About";
 import Resume from "./sections/Resume";
-import Companies from "./sections/Companies";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
 import { useTheme } from "./hooks/useTheme";
@@ -61,9 +60,7 @@ export default function App() {
       case "about":
         return <About />;
       case "resume":
-        return <Resume />;
-      case "companies":
-        return <Companies onOpenProjects={openCompanyProjects} />;
+        return <Resume onOpenProjects={openCompanyProjects} />;
       case "projects":
         return <Projects company={projectCompany} onCompanyChange={changeProjectCompany} />;
       case "contact":

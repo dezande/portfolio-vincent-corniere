@@ -7,7 +7,6 @@ export const NAV: { id: ScreenId; label: string; icon: string }[] = [
   { id: "home", label: "Accueil", icon: "home" },
   { id: "about", label: "À propos", icon: "user" },
   { id: "resume", label: "Parcours", icon: "briefcase" },
-  { id: "companies", label: "Entreprises", icon: "building" },
   { id: "projects", label: "Projets", icon: "grid" },
   { id: "contact", label: "Contact", icon: "mail" },
 ];

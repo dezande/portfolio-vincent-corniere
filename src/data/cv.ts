@@ -113,50 +113,6 @@ export const skillBars = [
   { name: "Docker & déploiement", value: 78 },
 ];
 
-export const experience = [
-  {
-    period: "Depuis avril 2018",
-    role: "Développeur back-end SSO",
-    org: "JobTeaser",
-    text: "Référent single sign-on : intégration des fournisseurs d'identité, supervision des connexions et mise en place du protocole OAuth2 dans la codebase.",
-    bullets: [
-      "Intégration de plus de 100 SSO (SAML, Shibboleth, CAS, OAuth2) dans la codebase",
-      "Publication des métadonnées JobTeaser dans les fédérations RENATER, DFN-AAI, SURFconext et eduGAIN",
-      "Mise en place d'une surveillance des SSO et des web services (générateur JSON, cron, Prometheus, Grafana)",
-      "Intégration d'OAuth2 avec OmniAuth et rédaction des documentations pour les DSI",
-      "Monitoring et détection des incidents avec Bugsnag et Kibana",
-    ],
-    stack: "Ruby on Rails 4, MySQL, Jira, Bugsnag, Kibana, SSO",
-  },
-  {
-    period: "Janvier 2016 — Avril 2018",
-    role: "Développeur full-stack Ruby on Rails",
-    org: "Prium Solutions",
-    text: "Développement d'applications SaaS pour des clients grands comptes : paris en ligne, portails métier, e-learning et outils de gestion.",
-    bullets: [
-      "Eurochance : application de paris en ligne développée from scratch (site, espace client, back-office à trois rôles)",
-      "Prium City et Prium One : interfaces web et mobile de suivi d'activité pour les salariés portés",
-      "VTC Solutions : plateforme e-learning de préparation aux examens (abonnements, statistiques, moteur de recherche)",
-      "Argus : estimation de reprise de véhicule et back-office Lead Auto avec API BMW et Mercedes",
-      "Chanel : algorithme d'optimisation des speed-meetings de mobilité interne",
-    ],
-    stack: "Ruby on Rails (3 à 5), MySQL, MongoDB, Angular, jQuery, API REST, AWS, NGINX, Unicorn",
-  },
-  {
-    period: "Mars 2015 — Décembre 2015",
-    role: "Développeur full-stack Ruby on Rails",
-    org: "CBM Web",
-    text: "Développement d'applications SaaS et de boutiques en ligne pour les clients de l'agence.",
-    bullets: [
-      "Travel in Med : refonte responsive d'un réseau social professionnel, chat interne et paiement Merc@net (BNP Paribas)",
-      "Parfaite & Satisfaite : comparateur de prestations beauté avec agenda et prise de rendez-vous en ligne",
-      "Cooking City : plateforme de cours de cuisine avec inscriptions et paiement PayPal",
-      "CBM Store, Sirum, O-Style, L'Univers du 2 roues : boutiques en ligne (Spree Commerce, paiements Webaffaire et PayPal)",
-    ],
-    stack: "Ruby on Rails 4, MySQL, MongoDB, GitLab CE, jQuery, Bootstrap, Sass",
-  },
-];
-
 export const education = [
   {
     period: "2014",
@@ -342,6 +298,7 @@ export type Company = {
   role: string;
   kind: string;
   desc: string;
+  bullets: string[];
   clients: string[];
   stack: string[];
 };
@@ -354,6 +311,13 @@ export const companies: Company[] = [
     role: "Développeur back-end SSO",
     kind: "Éditeur · Recrutement des jeunes diplômés",
     desc: "Plateforme européenne de recrutement pour les étudiants et les jeunes diplômés, connectée aux systèmes d'information des écoles et des universités. J'y suis le référent single sign-on.",
+    bullets: [
+      "Intégration de plus de 100 SSO (SAML, Shibboleth, CAS, OAuth2) dans la codebase",
+      "Publication des métadonnées JobTeaser dans les fédérations RENATER, DFN-AAI, SURFconext et eduGAIN",
+      "Mise en place d'une surveillance des SSO et des web services (générateur JSON, cron, Prometheus, Grafana)",
+      "Intégration d'OAuth2 avec OmniAuth et rédaction des documentations pour les DSI",
+      "Monitoring et détection des incidents avec Bugsnag et Kibana",
+    ],
     clients: ["RENATER", "DFN-AAI", "SURFconext", "eduGAIN"],
     stack: ["Ruby on Rails 4", "MySQL", "SAML", "Shibboleth", "CAS", "OAuth2", "Prometheus", "Grafana"],
   },
@@ -363,6 +327,13 @@ export const companies: Company[] = [
     role: "Développeur full-stack Ruby on Rails",
     kind: "ESN · Applications SaaS sur mesure",
     desc: "Développement d'applications métier pour des grands comptes et pour les filiales du groupe Prium : paris en ligne, portails de suivi d'activité, e-learning, outils logistiques et ERP.",
+    bullets: [
+      "Eurochance : application de paris en ligne développée from scratch (site, espace client, back-office à trois rôles)",
+      "Prium City et Prium One : interfaces web et mobile de suivi d'activité pour les salariés portés",
+      "VTC Solutions : plateforme e-learning de préparation aux examens (abonnements, statistiques, moteur de recherche)",
+      "Argus : estimation de reprise de véhicule et back-office Lead Auto avec API BMW et Mercedes",
+      "Chanel : algorithme d'optimisation des speed-meetings de mobilité interne",
+    ],
     clients: [
       "Eurochance",
       "ARTE",
@@ -387,6 +358,12 @@ export const companies: Company[] = [
     role: "Développeur full-stack Ruby on Rails",
     kind: "Agence web · SaaS et e-commerce",
     desc: "Développement des projets de l'agence : réseaux sociaux professionnels, plateformes de réservation et boutiques en ligne, du développement initial jusqu'à l'intégration des paiements.",
+    bullets: [
+      "Travel in Med : refonte responsive d'un réseau social professionnel, chat interne et paiement Merc@net (BNP Paribas)",
+      "Parfaite & Satisfaite : comparateur de prestations beauté avec agenda et prise de rendez-vous en ligne",
+      "Cooking City : plateforme de cours de cuisine avec inscriptions et paiement PayPal",
+      "CBM Store, Sirum, O-Style, L'Univers du 2 roues : boutiques en ligne (Spree Commerce, paiements Webaffaire et PayPal)",
+    ],
     clients: [
       "Travel in Med",
       "Parfaite & Satisfaite",

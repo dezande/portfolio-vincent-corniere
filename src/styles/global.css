@@ -364,7 +364,7 @@ input, textarea { font: inherit; }
 .pill:focus-visible { color: #f7ecd4; background: linear-gradient(180deg, #a82222, #5e0f10); border-color: #c9a24a; }
 .pill:active { color: #f7ecd4; background: linear-gradient(180deg, #8c1a1a, #4a0b0c); }
 
-.home-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.home-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center; width: 100%; max-width: 560px; }
 
 /* Portrait sous arche Art nouveau, soleil rayonnant derrière */
 .home-photo { position: relative; display: flex; align-items: center; justify-content: center; }
@@ -691,15 +691,18 @@ input, textarea { font: inherit; }
 
   .screen { inset: calc(var(--frame) + 8px) calc(var(--frame) + 8px) var(--footer-h) calc(var(--frame) + 8px); }
 
-  .home { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: start; overflow-x: hidden; overflow-y: auto; }
-  .home-text { padding: 64px 20px 10px; text-align: center; align-items: center; }
+  .home { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) max-content max-content minmax(0, 1fr); overflow-x: hidden; overflow-y: auto; }
+  .home::before, .home::after { content: ""; }
+  .home-text { padding: 64px 20px 6px; text-align: center; align-items: center; }
   .billing { justify-content: center; }
   .marquee, .pill { align-self: center; }
-  .home-photo { padding: 28px 0 48px; }
+  .home-photo { padding: 28px 0 32px; }
+  /* Le soleil reste dans la zone photo : il ne crée plus de défilement fantôme. */
+  .home-photo { overflow: hidden; }
   .home-photo .orn-sun {
-    width: min(115%, 760px);
-    -webkit-mask-image: radial-gradient(circle, #000 25%, transparent 58%);
-    mask-image: radial-gradient(circle, #000 25%, transparent 58%);
+    width: min(100%, 600px);
+    -webkit-mask-image: radial-gradient(circle, #000 25%, transparent 56%);
+    mask-image: radial-gradient(circle, #000 25%, transparent 56%);
   }
   .arch { width: min(70%, 300px); }
 

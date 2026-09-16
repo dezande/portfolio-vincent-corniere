@@ -13,7 +13,7 @@ export const profile = {
   role: "Développeur Ruby on Rails",
   roleLong: "Développeur web back-end",
   intro:
-    "Développeur back-end Ruby on Rails, je conçois et fais vivre des applications SaaS depuis plus de dix ans : architecture, modélisation des données, intégrations SSO et mise en production sur AWS.",
+    "Depuis 2015, je conçois des applications SaaS et je les accompagne jusqu'en production : architecture, données, intégrations SSO et infrastructure AWS.",
   photo: asset("img/portrait.svg"),
   email: "vincent.corniere@gmail.com",
   location: "Paris",

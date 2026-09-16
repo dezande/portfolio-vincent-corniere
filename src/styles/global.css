@@ -593,6 +593,7 @@ input, textarea { font: inherit; }
 }
 .company:nth-child(2) .bill { background: radial-gradient(90% 80% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%), linear-gradient(160deg, var(--peacock), #0f3230); }
 .company:nth-child(3) .bill { background: radial-gradient(90% 80% at 50% 0%, rgba(255, 255, 255, 0.1), transparent 60%), linear-gradient(160deg, #3a2a14, #1a120a); }
+.company:nth-child(4) .bill { background: radial-gradient(90% 80% at 50% 0%, rgba(255, 255, 255, 0.1), transparent 60%), linear-gradient(160deg, #22304f, #0d1424); }
 .company .bill::before { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(233, 209, 143, 0.5); pointer-events: none; }
 /* Les affiches restent sombres dans les deux thèmes : leur or est fixe, jamais le brun de la version claire */
 .company .bill { --gold-light: #e9d18f; --gold: #c9a24a; }

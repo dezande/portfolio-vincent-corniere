@@ -43,7 +43,7 @@ export const about = {
     { num: 10, suffix: "+", lbl: "Ans d'expérience" },
     { num: 100, suffix: "+", lbl: "SSO intégrés" },
     { num: 20, suffix: "+", lbl: "Projets livrés" },
-    { num: 3, suffix: "", lbl: "Entreprises" },
+    { num: 4, suffix: "", lbl: "Entreprises" },
   ],
 };
 
@@ -301,6 +301,8 @@ export type Company = {
   kind: string;
   desc: string;
   bullets: string[];
+  /** Titre de la liste de clients (par défaut « Clients & projets ») */
+  clientsLabel?: string;
   clients: string[];
   stack: string[];
 };
@@ -308,12 +310,24 @@ export type Company = {
 /** Les entreprises traversées, et les clients servis depuis chacune. */
 export const companies: Company[] = [
   {
+    name: "SideCare",
+    monogram: "SC",
+    period: "Depuis septembre 2021",
+    role: "Développeur web",
+    kind: "CDI · Ex-Hoggo · Paris",
+    desc: "Développeur web Ruby on Rails dans l'équipe produit de SideCare, anciennement Hoggo.",
+    // À compléter : réalisations et clients marquants (non renseignés sur LinkedIn).
+    bullets: [],
+    clients: [],
+    stack: ["Ruby on Rails"],
+  },
+  {
     name: "JobTeaser",
     monogram: "JT",
-    period: "Depuis avril 2018",
+    period: "Avril 2018 — Décembre 2020",
     role: "Développeur back-end SSO",
-    kind: "Éditeur · Recrutement des jeunes diplômés",
-    desc: "Plateforme européenne de recrutement pour les étudiants et les jeunes diplômés, connectée aux systèmes d'information des écoles et des universités. J'y suis le référent single sign-on.",
+    kind: "Freelance · Recrutement des jeunes diplômés",
+    desc: "Plateforme européenne de recrutement pour les étudiants et les jeunes diplômés, connectée aux systèmes d'information des écoles et des universités. J'y étais le référent single sign-on.",
     bullets: [
       "Intégration de plus de 100 SSO (SAML, Shibboleth, CAS, OAuth2) dans la codebase",
       "Publication des métadonnées JobTeaser dans les fédérations RENATER, DFN-AAI, SURFconext et eduGAIN",
@@ -321,6 +335,7 @@ export const companies: Company[] = [
       "Intégration d'OAuth2 avec OmniAuth et rédaction des documentations pour les DSI",
       "Monitoring et détection des incidents avec Bugsnag et Kibana",
     ],
+    clientsLabel: "Fédérations d'identité",
     clients: ["RENATER", "DFN-AAI", "SURFconext", "eduGAIN"],
     stack: ["Ruby on Rails 4", "MySQL", "SAML", "Shibboleth", "CAS", "OAuth2", "Prometheus", "Grafana"],
   },

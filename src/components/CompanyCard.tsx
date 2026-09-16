@@ -38,19 +38,27 @@ export default function CompanyCard({ company: c, index: i, onOpenProjects }: Pr
         <div className="kind">{c.kind}</div>
         <p className="desc">{c.desc}</p>
 
-        <div className="label">Réalisations</div>
-        <ul className="company-bullets stars">
-          {c.bullets.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
-        </ul>
+        {c.bullets.length > 0 && (
+          <>
+            <div className="label">Réalisations</div>
+            <ul className="company-bullets stars">
+              {c.bullets.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+          </>
+        )}
 
-        <div className="label">{i === 0 ? "Fédérations d'identité" : "Clients & projets"}</div>
-        <div className="tickets">
-          {c.clients.map((cl) => (
-            <span key={cl}>{cl}</span>
-          ))}
-        </div>
+        {c.clients.length > 0 && (
+          <>
+            <div className="label">{c.clientsLabel ?? "Clients & projets"}</div>
+            <div className="tickets">
+              {c.clients.map((cl) => (
+                <span key={cl}>{cl}</span>
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="label">Environnement</div>
         <div className="tickets muted">

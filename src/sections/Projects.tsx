@@ -41,7 +41,7 @@ export default function Projects({ company, onCompanyChange }: Props) {
         <button type="button" onClick={() => pickCompany(null)} aria-pressed={company === null}>
           {ALL_COMPANIES}
         </button>
-        {companies.map((c) => (
+        {companies.filter((c) => projects.some((p) => p.client === c.name)).map((c) => (
           <button key={c.name} type="button" onClick={() => pickCompany(c.name)} aria-pressed={company === c.name}>
             {c.name}
           </button>

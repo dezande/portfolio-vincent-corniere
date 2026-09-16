@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import PageHead from "../components/PageHead";
 import { Divider } from "../components/Ornament";
+import TechTag from "../components/TechTag";
 import { education, experience, skillBars, skillGroups } from "../data/cv";
 
 const numerals = ["I", "II", "III", "IV", "V"];
@@ -41,7 +42,7 @@ export default function Resume() {
                 </ul>
                 <div className="tickets muted xp-stack" aria-label="Environnement technique">
                   {x.stack.split(", ").map((t) => (
-                    <span key={t}>{t}</span>
+                    <TechTag key={t} name={t} />
                   ))}
                 </div>
               </div>

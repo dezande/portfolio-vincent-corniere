@@ -189,3 +189,56 @@ export const DecoClose = (p: MagicIconProps) => (
     <path d="M12 9.6 14.4 12 12 14.4 9.6 12z" fill="currentColor" />
   </Base>
 );
+
+/* ---- Pictogrammes techniques de repli (étiquettes sans logo de marque) ---- */
+
+/** Authentification (SSO, SAML, CAS, OAuth2…) — clé ouvragée */
+export const OrnateKey = (p: MagicIconProps) => (
+  <Base {...p}>
+    <circle cx="7" cy="7" r="3.8" />
+    <circle cx="7" cy="7" r="1.4" fill="currentColor" />
+    <path d="m9.7 9.7 10.3 10.3M15.5 15.5l2-2M18 18l2-2" />
+  </Base>
+);
+
+/** Cloud (AWS) — nuage à volutes */
+export const DecoCloud = (p: MagicIconProps) => (
+  <Base {...p}>
+    <path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 7.4 9.2 4.7 4.7 0 0 0 7 18.5z" />
+    <path d="M9 15.5c1.2-1.4 3-1.4 4.2 0" />
+  </Base>
+);
+
+/** Monitoring d'erreurs (Bugsnag) — scarabée */
+export const Scarab = (p: MagicIconProps) => (
+  <Base {...p}>
+    <ellipse cx="12" cy="13.5" rx="4.6" ry="6" />
+    <path d="M12 7.5v12M9.5 5.5 12 7.5l2.5-2M7.4 11H4M7.4 15H3.5M16.6 11H20M16.6 15h3.9M8.4 18.5 6 21M15.6 18.5 18 21" />
+  </Base>
+);
+
+/** API, serveur applicatif, algorithmes — rouage */
+export const Cog = (p: MagicIconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="3" />
+    <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" />
+    <circle cx="12" cy="12" r="6.5" />
+  </Base>
+);
+
+/** Paiement (Payvision) — pièce frappée d'une étoile */
+export const Coin = (p: MagicIconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="8.5" />
+    <circle cx="12" cy="12" r="6.3" strokeOpacity={0.5} />
+    <path d={spark(12, 12, 3.6)} fill="currentColor" stroke="none" />
+  </Base>
+);
+
+/** E-commerce (Spree) — sac de boutique */
+export const ShopBag = (p: MagicIconProps) => (
+  <Base {...p}>
+    <path d="M5 8h14l-1.2 12.5H6.2z" />
+    <path d="M9 10V6.5a3 3 0 0 1 6 0V10" />
+  </Base>
+);

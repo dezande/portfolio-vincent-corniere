@@ -778,3 +778,9 @@ button.bill:hover { filter: brightness(1.15); }
 }
 button.bill:hover .bill-cta, button.bill:focus-visible .bill-cta { opacity: 1; color: var(--bg); background: var(--gold-light); }
 .company .body .pill { margin-top: 6px; }
+
+/* Étiquettes de technologie : pictogramme doré devant le libellé */
+.tech-tag { display: inline-flex; align-items: center; gap: 8px; }
+.tech-ico { flex: none; width: 1.05em; height: 1.05em; color: var(--gold); }
+.tickets .tech-tag { padding-left: 14px; }
+.modal .tags .tech-tag .tech-ico { width: 1.25em; height: 1.25em; }

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Icon } from "../lib/icons";
 import type { Project } from "../data/cv";
 import { Divider } from "./Ornament";
+import TechTag from "./TechTag";
 
 export default function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -79,7 +80,7 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
 
           <div className="tags">
             {project.stack.map((t) => (
-              <span key={t}>{t}</span>
+              <TechTag key={t} name={t} />
             ))}
           </div>
         </div>

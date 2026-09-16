@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { motion } from "framer-motion";
 import PageHead from "../components/PageHead";
 import Pill from "../components/Pill";
+import TechTag from "../components/TechTag";
 import { Divider, Star } from "../components/Ornament";
 import { companies, partners, projects } from "../data/cv";
 
@@ -54,7 +55,7 @@ export default function Companies({ onOpenProjects }: { onOpenProjects: (company
               <div className="label">Environnement</div>
               <div className="tickets muted">
                 {c.stack.map((t) => (
-                  <span key={t}>{t}</span>
+                  <TechTag key={t} name={t} />
                 ))}
               </div>
 

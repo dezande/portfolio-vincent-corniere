@@ -70,7 +70,8 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
           <Icon name="close" aria-hidden="true" />
         </button>
 
-        <img src={project.img} alt="" />
+        {/* Version horizontale de l'affichette, objet centré pour le bandeau 16:9 */}
+        <img src={project.img.replace(/\.svg$/, "-wide.svg")} alt="" />
 
         <div className="meta">
           <span className="cat">

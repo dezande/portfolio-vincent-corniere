@@ -178,20 +178,37 @@ const WORKS = [
   { file: "work-9.svg", ground: "cbm", object: "bag" },
 ];
 
+/**
+ * Deux formats par projet :
+ *  - work-N.svg      900 × 1200 (vignette verticale 3:4)
+ *  - work-N-wide.svg 1600 × 900 (bandeau 16:9 de la fiche détaillée)
+ * Les objets sont dessinés autour de (CX, CY) ; le groupe est déplacé pour que l'objet
+ * (dont le centre visuel est vers y = 490) soit centré dans chaque format.
+ */
+const FORMATS = [
+  { suffix: "", w: W, h: H, cx: CX, cy: CY, sparks: [[190, 250, 16, 0.7], [720, 300, 11, 0.6], [700, 760, 14, 0.55]] },
+  { suffix: "-wide", w: 1600, h: 900, cx: 800, cy: 460, sparks: [[330, 230, 16, 0.7], [1270, 250, 12, 0.6], [1240, 690, 14, 0.55], [380, 680, 11, 0.5]] },
+];
+
 for (const w of WORKS) {
   const [a, b] = GROUNDS[w.ground];
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+  for (const f of FORMATS) {
+    const dx = f.cx - CX, dy = f.cy - CY;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${f.w} ${f.h}" width="${f.w}" height="${f.h}">
 <defs>
-  <radialGradient id="g" cx=".5" cy=".42" r=".8"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></radialGradient>
+  <radialGradient id="g" cx=".5" cy="${(f.cy / f.h).toFixed(2)}" r=".8"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></radialGradient>
   <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity=".45"/></filter>
   <filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .75 0 0 0 .1 0"/></filter>
 </defs>
-<rect width="${W}" height="${H}" fill="url(#g)"/>
+<rect width="${f.w}" height="${f.h}" fill="url(#g)"/>
+<g transform="translate(${dx} ${dy})">
 ${rays()}
 <g filter="url(#shadow)">${OBJECTS[w.object]()}</g>
-${star(190, 250, 16, GL, 0.7)}${star(720, 300, 11, GL, 0.6)}${star(700, 760, 14, GL, 0.55)}
-<rect width="${W}" height="${H}" filter="url(#n)"/>
+</g>
+${f.sparks.map(([x, y, r, op]) => star(x, y, r, GL, op)).join("")}
+<rect width="${f.w}" height="${f.h}" filter="url(#n)"/>
 </svg>`;
-  writeFileSync(`public/img/${w.file}`, svg);
+    writeFileSync(`public/img/${w.file.replace(".svg", `${f.suffix}.svg`)}`, svg);
+  }
 }
-console.log(`${WORKS.length} affichettes générées`);
+console.log(`${WORKS.length} projets × ${FORMATS.length} formats générés`);

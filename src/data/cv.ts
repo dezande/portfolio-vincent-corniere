@@ -31,7 +31,6 @@ export const about = {
     "Développeur web back-end spécialisé Ruby on Rails, j'interviens de l'étude des besoins jusqu'à la mise en production.",
   paragraphs: [
     "Depuis 2015, je développe des applications SaaS en Ruby on Rails pour des éditeurs et des agences : plateformes de paris en ligne, portails e-learning, outils métier, back-offices et places de marché. J'aime autant la conception d'un modèle de données propre que la chasse au bug en production.",
-    "Chez JobTeaser, je suis le référent SSO : j'ai intégré plus de cent fournisseurs d'identité (SAML, Shibboleth, CAS, OAuth2) et mis en place la supervision de ces connexions avec Prometheus et Grafana. Je m'occupe aussi de l'infrastructure : migrations Linode vers AWS, serveurs, déploiements.",
   ],
   facts: [
     { k: "Nom", v: "Vincent Cornière" },

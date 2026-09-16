@@ -548,17 +548,57 @@ input, textarea { font: inherit; }
 .filters button[aria-pressed="true"] { color: var(--bg); background: var(--gold); border-color: var(--gold); }
 
 .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 20px; }
-.work { position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; text-align: left; overflow: hidden; background: var(--surface); border: 1px solid var(--gold-dim); }
-.work::after { content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-dim); pointer-events: none; transition: border-color 0.35s var(--ease); }
-.work:hover::after { border-color: var(--gold); }
-/* Vignettes : pas de marge intérieure de bouton (l'image couvre toute la carte), fond sombre,
-   or fixe — l'affichette reste sombre dans les deux thèmes */
-.work { padding: 0; background: #0d0a09; --gold-light: #e9d18f; --gold: #c9a24a; --gold-dim: rgba(201, 162, 74, 0.35); }
-.work img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
-.work:hover img { transform: scale(1.06); }
-.work .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 22px 18px; text-align: center; background: linear-gradient(to top, rgba(8, 5, 4, 0.95) 10%, rgba(8, 5, 4, 0.4) 55%, transparent); }
-.work .overlay .cat { font-family: var(--font-accent); font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-light); }
-.work .overlay h4 { margin-top: 6px; font-size: 17px; letter-spacing: 0.04em; text-transform: uppercase; color: #f1e6cf; }
+/* Vignette de projet. Le bouton (.work) est laissé à Framer Motion ; la carte intérieure porte le style et le survol. */
+.work { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; }
+.work-card {
+  --gold-light: #e9d18f; --gold: #c9a24a; --gold-dim: rgba(201, 162, 74, 0.35);
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #0d0a09;
+  border: 1px solid var(--gold-dim);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.work-card img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease), filter 0.6s var(--ease); }
+
+/* Cadre intérieur doré */
+.work-card::after { content: ""; position: absolute; inset: 6px; z-index: 3; border: 1px solid var(--gold-dim); pointer-events: none; transition: inset 0.5s var(--ease), border-color 0.5s var(--ease); }
+
+/* Reflet de papier glacé qui traverse l'affiche */
+.work-shine {
+  position: absolute;
+  inset: -20% -60%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 240, 205, 0.32) 50%, transparent 60%);
+  transform: translateX(-70%);
+  opacity: 0;
+}
+
+.work .overlay { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 22px 18px 24px; text-align: center; background: linear-gradient(to top, rgba(8, 5, 4, 0.95) 10%, rgba(8, 5, 4, 0.4) 55%, transparent); }
+.work .overlay .cat { font-family: var(--font-accent); font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-light); transition: transform 0.5s var(--ease); }
+.work .work-title { display: block; margin-top: 6px; font-family: var(--font-title); font-size: 17px; font-weight: 700; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: #f1e6cf; transition: transform 0.5s var(--ease); }
+.work .work-more {
+  display: inline-flex; align-items: center; gap: 8px;
+  max-height: 0; margin-top: 0; overflow: hidden;
+  font-family: var(--font-title); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-light); opacity: 0;
+  transition: max-height 0.5s var(--ease), margin-top 0.5s var(--ease), opacity 0.4s var(--ease);
+}
+
+/* Survol (souris) et focus clavier */
+@media (hover: hover) {
+  .work:hover .work-card { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 22px 40px rgba(0, 0, 0, 0.38), 0 0 0 1px var(--gold), 0 0 26px rgba(201, 162, 74, 0.25); }
+  .work:hover .work-card img { transform: scale(1.07); filter: brightness(1.12) saturate(1.1); }
+  .work:hover .work-card::after { inset: 11px; border-color: var(--gold); }
+  .work:hover .work-shine { opacity: 1; transform: translateX(70%); transition: transform 1.1s var(--ease), opacity 0.2s linear; }
+  .work:hover .work-more { max-height: 24px; margin-top: 10px; opacity: 1; }
+}
+.work:focus-visible { outline: none; }
+.work:focus-visible .work-card { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-light), 0 22px 40px rgba(0, 0, 0, 0.38); }
+.work:focus-visible .work-card::after { inset: 11px; border-color: var(--gold); }
+.work:focus-visible .work-more { max-height: 24px; margin-top: 10px; opacity: 1; }
 
 .modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 24px; background: rgba(5, 3, 2, 0.85); backdrop-filter: blur(3px); }
 .modal .box { position: relative; width: min(720px, 100%); max-height: 86dvh; background: var(--surface); border: 1px solid var(--gold); box-shadow: 0 0 0 6px var(--surface), 0 0 0 7px var(--gold-dim); }

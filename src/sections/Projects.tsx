@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PageHead from "../components/PageHead";
 import ProjectModal from "../components/ProjectModal";
+import { Star } from "../components/Ornament";
 import { companies, projects, type Project } from "../data/cv";
 
 const ALL_COMPANIES = "Toutes";
@@ -53,10 +54,17 @@ export default function Projects({ company, onCompanyChange }: Props) {
               onClick={() => setOpen(p)}
               aria-label={`Voir le projet ${p.title}`}
             >
-              <img src={p.img} alt="" loading="lazy" />
-              <span className="overlay">
-                <span className="cat">{p.client}</span>
-                <h4>{p.title}</h4>
+              {/* Carte intérieure : Framer Motion pilote le transform du bouton, le survol anime celle-ci */}
+              <span className="work-card">
+                <img src={p.img} alt="" loading="lazy" />
+                <span className="work-shine" aria-hidden="true" />
+                <span className="overlay">
+                  <span className="cat">{p.client}</span>
+                  <span className="work-title">{p.title}</span>
+                  <span className="work-more" aria-hidden="true">
+                    <Star size={9} /> Voir le détail
+                  </span>
+                </span>
               </span>
             </motion.button>
           ))}

@@ -510,41 +510,53 @@ input, textarea { font: inherit; }
 /* ============================================================
    Parcours
    ============================================================ */
-.resume { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 48px; align-items: start; }
+/* Blocs verticaux, largement espacés */
+.res-block { margin-bottom: clamp(56px, 8vh, 88px); }
+.res-block:last-child { margin-bottom: 24px; }
 
-.timeline { position: relative; padding-left: 30px; }
-.timeline::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(var(--gold), var(--gold-dim) 80%, transparent); }
-.timeline > li { position: relative; padding-bottom: 34px; }
-.timeline > li:last-child { padding-bottom: 0; }
-.timeline > li::before {
-  content: "";
-  position: absolute;
-  left: -30px;
-  top: 6px;
-  width: 13px;
-  height: 13px;
-  background: var(--gold);
-  transform: rotate(45deg);
-  box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--gold-dim);
+/* Expériences : une rangée par poste */
+.xp-list { margin: 0; padding: 0; list-style: none; }
+.xp {
+  display: grid;
+  grid-template-columns: minmax(180px, 250px) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  padding: 44px 0;
+  border-top: 1px solid var(--line);
 }
-.timeline .period { display: inline-block; margin-bottom: 6px; font-family: var(--font-accent); font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); }
-.timeline h4 { font-size: 19px; letter-spacing: 0.02em; margin-bottom: 2px; }
-.timeline .org { font-family: var(--font-title); font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--crimson); margin-bottom: 10px; }
-[data-theme="dark"] .timeline .org, :root:not([data-theme="light"]) .timeline .org { color: #d05050; }
-.timeline p { font-size: 17px; margin-bottom: 10px; }
-.timeline .bullets li { font-size: 16px; line-height: 1.5; color: var(--muted); margin-bottom: 5px; }
-.timeline .stack { margin-top: 12px; font-size: 15px; font-style: italic; color: var(--muted); }
-.timeline .stack b { font-style: normal; font-family: var(--font-title); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.xp:first-child { padding-top: 8px; border-top: 0; }
 
-.skill { margin-bottom: 18px; }
-.skill .top { display: flex; justify-content: space-between; font-size: 16px; margin-bottom: 6px; }
+.xp-when { display: flex; flex-direction: column; gap: 8px; }
+.xp-num { font-family: var(--font-accent); font-size: 15px; letter-spacing: 0.3em; color: var(--gold-light); }
+.xp-org { font-family: var(--font-display); font-size: clamp(24px, 2.2vw, 32px); font-weight: 900; line-height: 1.05; text-transform: uppercase; color: var(--gold); text-shadow: 2px 2px 0 var(--crimson); }
+.xp-period { font-family: var(--font-title); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+.xp-body { max-width: 760px; }
+.xp-body h4 { font-size: 21px; letter-spacing: 0.02em; margin-bottom: 12px; }
+.xp-text { font-size: 18px; font-style: italic; line-height: 1.7; color: var(--text); margin-bottom: 20px; }
+.xp-bullets li { font-size: 17px; line-height: 1.65; color: var(--muted); margin-bottom: 10px; }
+.xp-stack { margin: 22px 0 0; }
+
+/* Formation : trois cartes */
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: clamp(16px, 2vw, 28px); }
+.edu { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 34px 26px 30px; text-align: center; }
+.edu-year { font-family: var(--font-display); font-size: 38px; font-weight: 900; line-height: 1; color: var(--gold); text-shadow: 2px 2px 0 var(--crimson); }
+.edu .orn-divider { color: var(--gold); margin: 4px 0 6px; }
+.edu h4 { font-size: 17px; line-height: 1.35; letter-spacing: 0.02em; }
+.edu-org { font-size: 16px; font-style: italic; color: var(--muted); }
+
+/* Compétences | environnement */
+.res-duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: start; }
+
+.skill { margin-bottom: 26px; }
+.skill .top { display: flex; justify-content: space-between; font-size: 17px; margin-bottom: 9px; }
 .skill .top .pct { font-family: var(--font-title); font-weight: 700; color: var(--gold); }
 .skill .track { position: relative; height: 8px; border: 1px solid var(--line); padding: 1px; }
 .skill .fill { height: 100%; background: repeating-linear-gradient(90deg, var(--gold) 0 6px, transparent 6px 8px); }
 
-.stack-list li { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 10px 0; border-bottom: 1px dotted var(--line); font-size: 16px; }
-.stack-list .k { flex: none; width: 160px; font-family: var(--font-title); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); padding-top: 3px; }
-.stack-list .v { min-width: 0; color: var(--muted); }
+.stack-list { margin: 0; }
+.stack-list > div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 6px 18px; padding: 14px 0; border-bottom: 1px dotted var(--line); }
+.stack-list dt { font-family: var(--font-title); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); padding-top: 4px; }
+.stack-list dd { margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); }
 
 /* ============================================================
    Projets
@@ -712,6 +724,8 @@ input, textarea { font: inherit; }
   .arch { width: min(70%, 300px); }
 
   .page { padding: 24px 18px 40px; }
+  .xp { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 36px 0; }
+  .xp-when { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
 
   .tools { top: calc(var(--frame) + 18px); right: calc(var(--frame) + 18px); transform: none; }
 }
@@ -725,7 +739,8 @@ input, textarea { font: inherit; }
   .home h1 { font-size: 38px; }
   .marquee { font-size: 12px; padding: 7px 14px; letter-spacing: 0.14em; }
   .home p.intro { font-size: 17px; }
-  .facts .k, .stack-list .k { width: 100%; }
+  .facts .k { width: 100%; }
+  .stack-list > div { grid-template-columns: minmax(0, 1fr); }
   .rail { gap: 5px; padding: 6px 10px; }
   .rail button { width: 40px; height: 40px; }
 }

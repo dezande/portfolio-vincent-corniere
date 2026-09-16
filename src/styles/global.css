@@ -216,6 +216,9 @@ input, textarea { font: inherit; }
   transition: background 0.3s var(--ease), color 0.3s var(--ease);
 }
 .tools button svg { transform: rotate(-45deg); }
+/* Fiche projet ouverte : le bouton de thème s'efface pour ne pas couvrir le bouton de fermeture */
+.tools { transition: opacity 0.25s var(--ease); }
+.modal-open .tools { opacity: 0; pointer-events: none; }
 .tools button:hover { color: var(--bg); background: var(--gold); }
 
 /* ============================================================

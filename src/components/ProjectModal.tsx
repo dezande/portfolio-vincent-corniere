@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Icon } from "../lib/icons";
 import type { Project } from "../data/cv";
@@ -11,6 +12,8 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
 
   useEffect(() => {
     closeRef.current?.focus();
+    // Signale la fiche ouverte : le bouton de thème s'efface pour libérer le coin.
+    document.documentElement.classList.add("modal-open");
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -35,10 +38,15 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
     };
 
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.documentElement.classList.remove("modal-open");
+    };
   }, [onClose]);
 
-  return (
+  // Rendue dans <body> : hors du conteneur d'écran animé (dont le filtre de transition
+  // enfermerait la fenêtre sous le bouton de thème).
+  return createPortal(
     <motion.div
       className="modal"
       role="dialog"
@@ -85,6 +93,7 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body,
   );
 }

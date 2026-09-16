@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build && node scripts/pages-routes.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
-    "cv": "cd cv && ./build.sh",
-    "cartes": "cd cartes && ./build.sh"
+    "cv": "cd cv && ./build.sh"
   },
   "dependencies": {
     "framer-motion": "^13.3.0",

@@ -182,8 +182,10 @@ ${tendrils(true)}
   <path d="M470 150 C464 210 462 280 468 380" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".35"/>
   <!-- Dessus ovale -->
   <ellipse cx="400" cy="138" rx="112" ry="22" fill="#2a211d" stroke="${GOLD}" stroke-width="3"/>
-  <!-- Ruban qui suit la courbe du chapeau -->
-  <path d="M299 300 C360 314 440 314 501 300 L503 338 C440 352 360 352 297 338 Z" fill="${RED}" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Bandeau noir souligné de filets dorés, qui suit la courbe du chapeau -->
+  <path d="M299 300 C360 314 440 314 501 300 L503 338 C440 352 360 352 297 338 Z" fill="${INK}"/>
+  <path d="M299 300 C360 314 440 314 501 300 M297 338 C360 352 440 352 503 338" fill="none" stroke="${GOLD}" stroke-width="2.5"/>
+  <path d="M298 307 C360 321 440 321 502 307 M297 331 C360 345 440 345 503 331" fill="none" stroke="${GOLD}" stroke-width="1" opacity=".7"/>
   ${hatChevrons}
   <!-- Bord relevé sur les côtés -->
   <path d="M168 356 C186 326 232 346 268 356 C334 374 466 374 532 356 C568 346 614 326 632 356 C626 398 540 410 400 410 C260 410 174 398 168 356 Z" fill="${INK}" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>

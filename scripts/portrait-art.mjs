@@ -1,7 +1,7 @@
 /**
  * Portrait de l'accueil : Vincent en magicien, illustration vectorielle originale dans le style
  * des affiches du site (fond rouge sang, soleil rayonnant, or). Traits repris de sa photo :
- * cheveux courts châtain clair, lunettes rectangulaires foncées, sourire, t-shirt rayé marine.
+ * cheveux courts châtain clair, lunettes rectangulaires foncées, sourire. Chemise blanche sous l'habit.
  * Usage : node scripts/portrait-art.mjs  → public/img/portrait.svg
  */
 import { writeFileSync } from "node:fs";
@@ -22,9 +22,6 @@ for (let i = 0; i < 40; i++) {
   rays += `<path d="M${cx} ${cy}L${(cx + Math.cos(a) * r).toFixed(1)} ${(cy + Math.sin(a) * r).toFixed(1)}L${(cx + Math.cos(a2) * r).toFixed(1)} ${(cy + Math.sin(a2) * r).toFixed(1)}Z" fill="${GOLD_L}" opacity=".08"/>`;
 }
 
-// Rayures marine du t-shirt, visibles dans l'encolure de l'habit
-let stripes = "";
-for (let y = 740; y < 1100; y += 26) stripes += `<rect x="300" y="${y}" width="200" height="13" fill="${NAVY}"/>`;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
 <defs>
@@ -43,9 +40,14 @@ ${rays}
 <g filter="url(#shadow)">
   <!-- Habit de magicien -->
   <path d="M90 1100 C110 900 190 790 320 750 L400 800 L480 750 C610 790 690 900 710 1100 Z" fill="${COAT}"/>
-  <!-- T-shirt rayé dans l'encolure -->
-  <path d="M325 740 L475 740 L400 1010 Z" fill="${CREAM}"/>
-  <g clip-path="url(#shirt)">${stripes}</g>
+  <!-- Chemise blanche : plastron plissé et boutons dorés -->
+  <path d="M325 740 L475 740 L400 1010 Z" fill="#fbf7ee"/>
+  <g clip-path="url(#shirt)">
+    <path d="M372 780 L388 1010 M428 780 L412 1010" stroke="#d8cfc0" stroke-width="2.5"/>
+    <circle cx="400" cy="830" r="7" fill="${GOLD}" stroke="${INK}" stroke-width="1.5"/>
+    <circle cx="400" cy="885" r="7" fill="${GOLD}" stroke="${INK}" stroke-width="1.5"/>
+    <circle cx="400" cy="940" r="7" fill="${GOLD}" stroke="${INK}" stroke-width="1.5"/>
+  </g>
   <!-- Revers à liseré doré -->
   <path d="M320 750 L400 1010 L352 1010 L262 790 Z" fill="#221a18" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
   <path d="M480 750 L400 1010 L448 1010 L538 790 Z" fill="#221a18" stroke="${GOLD}" stroke-width="3" stroke-linejoin="round"/>
@@ -101,12 +103,8 @@ ${rays}
     <ellipse cx="400" cy="368" rx="212" ry="36" fill="${COAT}" stroke="${GOLD}" stroke-width="3"/>
   </g>
 
-  <!-- Baguette magique -->
-  <path d="M560 1080 L700 860" stroke="${INK}" stroke-width="18" stroke-linecap="round"/>
-  <path d="M682 888 L700 860" stroke="${CREAM}" stroke-width="18" stroke-linecap="round"/>
 </g>
 
-${spark(716, 836, 30)}${spark(760, 900, 12, GOLD_L, 0.8)}${spark(660, 800, 10, GOLD_L, 0.7)}
 ${spark(150, 260, 22, GOLD_L, 0.75)}${spark(660, 190, 14, GOLD_L, 0.6)}${spark(120, 520, 10, GOLD_L, 0.5)}
 
 <rect width="${W}" height="${H}" filter="url(#n)"/>

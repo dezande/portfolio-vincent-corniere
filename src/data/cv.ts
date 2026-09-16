@@ -35,7 +35,7 @@ export const about = {
   facts: [
     { k: "Nom", v: "Vincent Cornière" },
     { k: "Poste", v: "Développeur back-end" },
-    { k: "Ville", v: "Paris" },
+    { k: "Ville", v: "Paris", icon: "pin" },
     { k: "Email", v: "vincent.corniere@gmail.com" },
     { k: "Disponibilité", v: "Non disponible" },
   ],

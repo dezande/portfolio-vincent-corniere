@@ -481,6 +481,7 @@ input, textarea { font: inherit; }
 .facts li { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 0; border-bottom: 1px dotted var(--line); font-size: 17px; }
 .facts .k { flex: none; width: 140px; font-family: var(--font-title); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); padding-top: 4px; }
 .facts .v { min-width: 0; overflow-wrap: anywhere; }
+.facts .fact-icon { margin-right: 8px; font-size: 1.25em; color: var(--gold); vertical-align: -0.25em; }
 
 /* Compteurs : une seule ligne de quatre, juste sous le titre */
 .counters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(8px, 1.5vw, 18px); margin: 0 0 44px; }

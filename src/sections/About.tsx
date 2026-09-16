@@ -40,7 +40,10 @@ export default function About() {
             {about.facts.map((f) => (
               <li key={f.k}>
                 <span className="k">{f.k}</span>
-                <span className="v">{f.v}</span>
+                <span className="v">
+                  {"icon" in f && f.icon && <Icon name={f.icon} className="mi fact-icon" aria-hidden="true" />}
+                  {f.v}
+                </span>
               </li>
             ))}
           </ul>

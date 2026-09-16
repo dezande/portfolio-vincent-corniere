@@ -2,26 +2,65 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PageHead from "../components/PageHead";
 import ProjectModal from "../components/ProjectModal";
-import { projects, type Project } from "../data/cv";
+import { companies, projects, type Project } from "../data/cv";
 
-export default function Projects() {
-  const [filter, setFilter] = useState("Tous");
+const ALL = "Tous";
+const ALL_COMPANIES = "Toutes";
+
+type Props = {
+  /** Entreprise sélectionnée ; pilotée par App pour pouvoir arriver depuis l'écran Entreprises. */
+  company: string | null;
+  onCompanyChange: (company: string | null) => void;
+};
+
+export default function Projects({ company, onCompanyChange }: Props) {
+  const [category, setCategory] = useState(ALL);
   const [open, setOpen] = useState<Project | null>(null);
 
-  const categories = useMemo(() => ["Tous", ...new Set(projects.map((p) => p.cat))], []);
-  const shown = filter === "Tous" ? projects : projects.filter((p) => p.cat === filter);
+  const byCompany = useMemo(
+    () => (company ? projects.filter((p) => p.client === company) : projects),
+    [company],
+  );
+
+  // Les catégories proposées dépendent de l'entreprise : pas de filtre qui mène à une grille vide.
+  const categories = useMemo(() => [ALL, ...new Set(byCompany.map((p) => p.cat))], [byCompany]);
+  const activeCategory = categories.includes(category) ? category : ALL;
+  const shown = activeCategory === ALL ? byCompany : byCompany.filter((p) => p.cat === activeCategory);
+
+  function pickCompany(name: string | null) {
+    setCategory(ALL);
+    onCompanyChange(name);
+  }
 
   return (
     <div className="page scroll-area">
       <PageHead eyebrow="Réalisations" title="Mes projets" />
 
+      <div className="filters" role="group" aria-label="Filtrer les projets par entreprise">
+        <span className="filters-label">Entreprise</span>
+        <button type="button" onClick={() => pickCompany(null)} aria-pressed={company === null}>
+          {ALL_COMPANIES}
+        </button>
+        {companies.map((c) => (
+          <button key={c.name} type="button" onClick={() => pickCompany(c.name)} aria-pressed={company === c.name}>
+            {c.name}
+          </button>
+        ))}
+      </div>
+
       <div className="filters" role="group" aria-label="Filtrer les projets par catégorie">
+        <span className="filters-label">Catégorie</span>
         {categories.map((c) => (
-          <button key={c} type="button" onClick={() => setFilter(c)} aria-pressed={filter === c}>
+          <button key={c} type="button" onClick={() => setCategory(c)} aria-pressed={activeCategory === c}>
             {c}
           </button>
         ))}
       </div>
+
+      <p className="filters-count" aria-live="polite">
+        {shown.length} projet{shown.length > 1 ? "s" : ""}
+        {company ? ` réalisé${shown.length > 1 ? "s" : ""} chez ${company}` : ""}
+      </p>
 
       <motion.div className="work-grid" layout>
         <AnimatePresence mode="popLayout">

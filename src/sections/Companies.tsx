@@ -1,18 +1,22 @@
 import { Fragment } from "react";
 import { motion } from "framer-motion";
 import PageHead from "../components/PageHead";
+import Pill from "../components/Pill";
 import { Divider, Star } from "../components/Ornament";
-import { companies, partners } from "../data/cv";
+import { companies, partners, projects } from "../data/cv";
 
 const numerals = ["I", "II", "III", "IV", "V"];
 
-export default function Companies() {
+export default function Companies({ onOpenProjects }: { onOpenProjects: (company: string) => void }) {
   return (
     <div className="page scroll-area">
       <PageHead eyebrow="Les grandes maisons" title="Entreprises & clients" />
 
       <div className="companies">
-        {companies.map((c, i) => (
+        {companies.map((c, i) => {
+          const count = projects.filter((p) => p.client === c.name).length;
+          const label = `Voir ${count > 1 ? `les ${count} projets` : "le projet"}`;
+          return (
           <motion.article
             key={c.name}
             className="company card-deco"
@@ -20,12 +24,20 @@ export default function Companies() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 * i, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <header className="bill">
+            <button
+              type="button"
+              className="bill"
+              onClick={() => onOpenProjects(c.name)}
+              aria-label={`${label} réalisés chez ${c.name}`}
+            >
               <span className="num">Acte {numerals[i]}</span>
               <h3>{c.name}</h3>
               <Divider width={140} />
               <span className="period">{c.period}</span>
-            </header>
+              <span className="bill-cta" aria-hidden="true">
+                {label} →
+              </span>
+            </button>
 
             <div className="body">
               <h4 className="role">{c.role}</h4>
@@ -45,9 +57,14 @@ export default function Companies() {
                   <span key={t}>{t}</span>
                 ))}
               </div>
+
+              <Pill icon="grid" onClick={() => onOpenProjects(c.name)}>
+                {label}
+              </Pill>
             </div>
           </motion.article>
-        ))}
+          );
+        })}
       </div>
 
       <h3 className="h3" style={{ marginTop: 56 }}>

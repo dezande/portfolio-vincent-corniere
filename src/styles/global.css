@@ -700,3 +700,27 @@ input, textarea { font: inherit; }
 .tools button:hover,
 .modal .close { --icon-bg: var(--gold); }
 .pill:hover .dot { --icon-bg: var(--crimson); }
+
+/* Filtres de projets : libellé de ligne et compteur */
+.filters { align-items: center; margin-bottom: 14px; }
+.filters-label { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-right: 6px; }
+.filters-count { margin: 6px 0 26px; text-align: center; font-style: italic; }
+
+/* Affiche d'entreprise cliquable */
+button.bill { font: inherit; width: 100%; cursor: pointer; transition: filter 0.35s var(--ease); }
+button.bill:hover { filter: brightness(1.15); }
+.company .bill .bill-cta {
+  margin-top: 10px;
+  padding: 3px 12px;
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  border: 1px solid rgba(233, 209, 143, 0.5);
+  opacity: 0.75;
+  transition: opacity 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
+}
+button.bill:hover .bill-cta, button.bill:focus-visible .bill-cta { opacity: 1; color: var(--bg); background: var(--gold-light); }
+.company .body .pill { margin-top: 6px; }

@@ -15,19 +15,31 @@ import { profile } from "./data/cv";
 export default function App() {
   const { theme, toggle } = useTheme();
   const [screen, setScreen] = useState<ScreenId>("home");
+  const [projectCompany, setProjectCompany] = useState<string | null>(null);
+
+  function openCompanyProjects(company: string) {
+    setProjectCompany(company);
+    setScreen("projects");
+  }
+
+  function navigate(id: ScreenId) {
+    // Depuis le menu, l'écran Projets s'ouvre sur toutes les entreprises.
+    if (id === "projects") setProjectCompany(null);
+    setScreen(id);
+  }
 
   function render() {
     switch (screen) {
       case "home":
-        return <Home onNavigate={setScreen} />;
+        return <Home onNavigate={navigate} />;
       case "about":
         return <About />;
       case "resume":
         return <Resume />;
       case "companies":
-        return <Companies />;
+        return <Companies onOpenProjects={openCompanyProjects} />;
       case "projects":
-        return <Projects />;
+        return <Projects company={projectCompany} onCompanyChange={setProjectCompany} />;
       case "contact":
         return <Contact />;
     }
@@ -39,7 +51,7 @@ export default function App() {
         Aller au contenu
       </a>
 
-      <NavRail active={screen} onChange={setScreen} />
+      <NavRail active={screen} onChange={navigate} />
 
       <div className="stage">
         <AnimatePresence mode="wait">

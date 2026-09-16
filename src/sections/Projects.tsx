@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PageHead from "../components/PageHead";
 import ProjectModal from "../components/ProjectModal";
-import { Star } from "../components/Ornament";
 import { companies, projects, type Project } from "../data/cv";
 
 const ALL_COMPANIES = "Toutes";
@@ -62,7 +61,7 @@ export default function Projects({ company, onCompanyChange }: Props) {
                   <span className="cat">{p.client}</span>
                   <span className="work-title">{p.title}</span>
                   <span className="work-more" aria-hidden="true">
-                    <Star size={9} /> Voir le détail
+                    Voir le détail
                   </span>
                 </span>
               </span>

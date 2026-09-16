@@ -326,24 +326,43 @@ input, textarea { font: inherit; }
   background: transparent;
   border: 1px solid var(--gold);
   clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
-  transition: color 0.35s var(--ease), background 0.35s var(--ease);
+  transition: color 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease);
 }
-.pill::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--gold-dim); clip-path: inherit; pointer-events: none; }
+.pill::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--gold-dim); clip-path: inherit; pointer-events: none; transition: border-color 0.35s var(--ease); }
+
+/* Pastille : toujours un losange d'or brillant avec la baguette à l'encre,
+   lisible sur les deux thèmes et dans tous les états. */
 .pill .dot {
+  --icon-bg: #d9bc6c;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  font-size: 15px;
-  color: var(--bg);
-  background: var(--gold);
+  width: 36px;
+  height: 36px;
+  font-size: 17px;
+  color: #1c130e;
+  background: linear-gradient(135deg, #f0dc9e, #c9a24a 70%);
+  box-shadow: 0 0 0 1px rgba(28, 19, 14, 0.25);
   transform: rotate(45deg);
-  transition: background 0.35s var(--ease);
+  transition: transform 0.45s var(--ease), box-shadow 0.35s var(--ease);
 }
-.pill .dot svg { transform: rotate(-45deg); }
-.pill:hover { color: var(--bg); background: var(--gold); }
-.pill:hover .dot { background: var(--crimson); color: var(--gold-light); }
+.pill .dot svg { transform: rotate(-45deg); transition: transform 0.45s var(--ease); }
 .pill .txt { position: relative; }
+
+/* Version claire : un billet imprimé sur papier, filet brun, fond crème */
+[data-theme="light"] .pill { color: #5e1010; background: rgba(255, 250, 236, 0.6); border-color: #9c7424; }
+[data-theme="light"] .pill::before { border-color: rgba(156, 116, 36, 0.45); }
+
+/* Survol (et focus clavier) : le billet s'imprime en rouge sang, texte crème,
+   la pastille pivote d'un quart de tour. Réservé aux appareils avec souris,
+   pour ne pas rester « collé » après un toucher sur tablette. */
+@media (hover: hover) {
+  .pill:hover { color: #f7ecd4; background: linear-gradient(180deg, #a82222, #5e0f10); border-color: #c9a24a; }
+  .pill:hover::before { border-color: rgba(240, 220, 158, 0.55); }
+  .pill:hover .dot { transform: rotate(135deg); box-shadow: 0 0 0 1px rgba(240, 220, 158, 0.6), 0 0 14px rgba(240, 220, 158, 0.45); }
+  .pill:hover .dot svg { transform: rotate(-135deg); }
+}
+.pill:focus-visible { color: #f7ecd4; background: linear-gradient(180deg, #a82222, #5e0f10); border-color: #c9a24a; }
+.pill:active { color: #f7ecd4; background: linear-gradient(180deg, #8c1a1a, #4a0b0c); }
 
 .home-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 
@@ -704,12 +723,10 @@ input, textarea { font: inherit; }
 .rail .mi { width: 1.3em; height: 1.3em; }
 /* Couleur « creuse » des pictogrammes = fond réel du support */
 .rail button[aria-current="true"],
-.pill .dot,
 .exp-card .ico,
 .contact-card .ico,
 .tools button:hover,
 .modal .close { --icon-bg: var(--gold); }
-.pill:hover .dot { --icon-bg: var(--crimson); }
 
 /* Filtres de projets : libellé de ligne et compteur */
 .filters { align-items: center; margin-bottom: 14px; }

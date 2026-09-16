@@ -594,7 +594,9 @@ input, textarea { font: inherit; }
 .company:nth-child(2) .bill { background: radial-gradient(90% 80% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%), linear-gradient(160deg, var(--peacock), #0f3230); }
 .company:nth-child(3) .bill { background: radial-gradient(90% 80% at 50% 0%, rgba(255, 255, 255, 0.1), transparent 60%), linear-gradient(160deg, #3a2a14, #1a120a); }
 .company .bill::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(233, 209, 143, 0.5); pointer-events: none; }
-.company .bill .num { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.3em; color: var(--gold-light); }
+/* Les affiches restent sombres dans les deux thèmes : leur or est fixe, jamais le brun de la version claire */
+.company .bill { --gold-light: #e9d18f; --gold: #c9a24a; }
+.company .bill .num { font-family: var(--font-title); font-size: 13px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: #e9d18f; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45); }
 .company .bill h3 { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 32px); font-weight: 900; text-transform: uppercase; color: var(--gold-light); text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5); }
 .company .bill .orn-divider { color: var(--gold-light); }
 .company .bill .period { font-family: var(--font-title); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }

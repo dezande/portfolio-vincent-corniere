@@ -21,6 +21,12 @@ export default function About() {
     <div className="page scroll-area">
       <PageHead eyebrow="À propos" title="Qui suis-je" />
 
+      <div className="counters">
+        {about.counters.map((c) => (
+          <Counter key={c.lbl} {...c} />
+        ))}
+      </div>
+
       <div className="about">
         <div>
           <p className="lead">{about.lead}</p>
@@ -39,11 +45,6 @@ export default function About() {
             ))}
           </ul>
 
-          <div className="counters">
-            {about.counters.map((c) => (
-              <Counter key={c.lbl} {...c} />
-            ))}
-          </div>
         </div>
       </div>
 

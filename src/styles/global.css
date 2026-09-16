@@ -482,10 +482,11 @@ input, textarea { font: inherit; }
 .facts .k { flex: none; width: 140px; font-family: var(--font-title); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); padding-top: 4px; }
 .facts .v { min-width: 0; overflow-wrap: anywhere; }
 
-.counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr)); gap: 14px; margin-top: 30px; }
-.counter { padding: 22px 14px 18px; text-align: center; }
-.counter .num { display: block; font-family: var(--font-display); font-size: 36px; font-weight: 900; line-height: 1; color: var(--gold); text-shadow: 2px 2px 0 var(--crimson); }
-.counter .lbl { display: block; margin-top: 10px; font-family: var(--font-title); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+/* Compteurs : une seule ligne de quatre, juste sous le titre */
+.counters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(8px, 1.5vw, 18px); margin: 0 0 44px; }
+.counter { padding: clamp(14px, 2vw, 24px) 8px clamp(12px, 1.6vw, 20px); text-align: center; }
+.counter .num { display: block; font-family: var(--font-display); font-size: clamp(22px, 3vw, 40px); font-weight: 900; line-height: 1; color: var(--gold); text-shadow: 2px 2px 0 var(--crimson); }
+.counter .lbl { display: block; margin-top: 10px; font-family: var(--font-title); font-size: clamp(9px, 0.9vw, 11px); letter-spacing: 0.14em; line-height: 1.4; text-transform: uppercase; color: var(--muted); }
 
 .expertise { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 20px; }
 .exp-card { padding: 28px 24px; transition: transform 0.35s var(--ease), border-color 0.35s var(--ease); }
@@ -715,6 +716,10 @@ input, textarea { font: inherit; }
 }
 
 @media (max-width: 560px) {
+  /* Compteurs sur une ligne : libellés resserrés, coupure avec tiret si besoin */
+  .counter { padding-left: 3px; padding-right: 3px; }
+  .counter .lbl { font-size: 8.5px; letter-spacing: 0.03em; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: anywhere; }
+
   .footer .long { display: none; }
   .home h1 { font-size: 38px; }
   .marquee { font-size: 12px; padding: 7px 14px; letter-spacing: 0.14em; }

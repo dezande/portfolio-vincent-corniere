@@ -5,7 +5,7 @@
 //  Recto : nom, métier, et une frise où un lapin est assis entre 4 losanges.
 //  Le seul marquage est un losange évidé (voir rabbit-rail) : invisible pour qui
 //  ne le cherche pas, lisible d'un coup d'œil grâce au lapin qui sert de repère.
-//  Verso : blanc et vide, pour que les spectateurs puissent y dessiner.
+//  Verso : blanc avec le même cadre, vide pour que les spectateurs puissent y dessiner.
 //
 //  Format : 85 × 55 mm, fond perdu de 3 mm (page de 91 × 61 mm).
 //  Ordre des pages : recto 1, verso, recto 2, verso… (impression recto verso).
@@ -50,13 +50,13 @@
 )))
 
 // Cadre double, à 4 mm du bord de coupe (reste dans la zone sûre)
-#let frame = {
+#let frame(gold: gold) = {
   let o = bleed + 3.2mm
   let i = bleed + 4.2mm
   place(top + left, dx: o, dy: o, rect(width: W + 2 * bleed - 2 * o, height: H + 2 * bleed - 2 * o, stroke: 0.6pt + gold))
   place(top + left, dx: i, dy: i, rect(width: W + 2 * bleed - 2 * i, height: H + 2 * bleed - 2 * i, stroke: 0.25pt + gold))
   for (x, y) in ((left, top), (right, top), (left, bottom), (right, bottom)) {
-    place(x + y, dx: if x == left { o - 1.6pt } else { -o + 1.6pt }, dy: if y == top { o - 1.6pt } else { -o + 1.6pt }, diamond(r: 1.6pt))
+    place(x + y, dx: if x == left { o - 1.6pt } else { -o + 1.6pt }, dy: if y == top { o - 1.6pt } else { -o + 1.6pt }, diamond(r: 1.6pt, fill: gold))
   }
 }
 
@@ -95,7 +95,7 @@
 }
 
 #let recto(n) = {
-  frame
+  frame()
   place(top + center, dy: bleed + 5mm, fan(r: 6.5mm))
   place(center + horizon, dy: 1.2mm, align(center, {
     text(font: f-title, weight: 600, size: 6pt, tracking: 2.2pt, fill: gold)[#star(r: 1.6pt) #h(3pt) PRÉSENTE #h(3pt) #star(r: 1.6pt)]
@@ -110,8 +110,9 @@
   place(bottom + center, dy: -(bleed + 5.4mm), rabbit-rail(n))
 }
 
-// Verso vide et blanc : les spectateurs doivent pouvoir y dessiner au stylo
-#let verso = page(fill: white)[]
+// Verso blanc : seulement le cadre (or plus sombre, lisible sur blanc),
+// l'intérieur reste vide pour que les spectateurs y dessinent au stylo
+#let verso = page(fill: white, background: frame(gold: rgb("#8a6420")))[]
 
 #let variants = sys.inputs.at("variants", default: "1,2,3,4,5").split(",").map(int)
 #for (i, n) in variants.enumerate() {

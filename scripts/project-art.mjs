@@ -95,21 +95,37 @@ const OBJECTS = {
       <circle cx="${CX}" cy="${CY + 30}" r="14" fill="${I}"/>`;
   },
 
-  // 6. Collecte des déchets — bac de tri
-  bin: () => `
-    <path d="M${CX - 150} ${CY - 110}H${CX + 150}L${CX + 120} ${CY + 200}H${CX - 120}Z" fill="${C}" stroke="${G}" stroke-width="8" stroke-linejoin="round"/>
-    <rect x="${CX - 180}" y="${CY - 160}" width="360" height="52" rx="10" fill="${GL}" stroke="${G}" stroke-width="6"/>
-    <rect x="${CX - 45}" y="${CY - 192}" width="90" height="36" rx="10" fill="none" stroke="${GL}" stroke-width="12"/>
-    <g fill="none" stroke="${R}" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M${CX - 18} ${CY - 36}L${CX + 46} ${CY + 70}"/>
-      <path d="M${CX + 30} ${CY + 106}H${CX - 60}"/>
-      <path d="M${CX - 82} ${CY + 76}L${CX - 30} ${CY - 12}"/>
-    </g>
-    <g fill="${R}">
-      <path d="M${CX + 64} ${CY + 44}l-2 50-44-24z"/>
-      <path d="M${CX - 52} ${CY + 106}l42-28v56z"/>
-      <path d="M${CX - 2} ${CY - 58}l-46 20 44 26z"/>
-    </g>`,
+  // 6. Collecte des déchets — camion de collecte, médaillon de recyclage sur la benne
+  truck: () => {
+    // Trois flèches courbes identiques, décalées de 120°, qui se suivent sur un cercle.
+    const recycle = (cx, cy, r) => {
+      let out = "";
+      for (let k = 0; k < 3; k++) {
+        const a0 = ((-80 + 120 * k) * Math.PI) / 180, a1 = a0 + (82 * Math.PI) / 180;
+        const p0 = [cx + r * Math.cos(a0), cy + r * Math.sin(a0)];
+        const p1 = [cx + r * Math.cos(a1), cy + r * Math.sin(a1)];
+        const t = [-Math.sin(a1), Math.cos(a1)], n = [Math.cos(a1), Math.sin(a1)];
+        const tip = [p1[0] + t[0] * 20, p1[1] + t[1] * 20];
+        const b1 = [p1[0] + n[0] * 15, p1[1] + n[1] * 15], b2 = [p1[0] - n[0] * 15, p1[1] - n[1] * 15];
+        const f = (q) => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`;
+        out += `<path d="M${f(p0)}A${r} ${r} 0 0 1 ${f(p1)}" fill="none" stroke="${GL}" stroke-width="11" stroke-linecap="round"/>`;
+        out += `<path d="M${f(tip)}L${f(b1)}L${f(b2)}Z" fill="${GL}"/>`;
+      }
+      return out;
+    };
+    const wheel = (x) => `<circle cx="${x}" cy="${CY + 95}" r="50" fill="${I}" stroke="${GL}" stroke-width="10"/><circle cx="${x}" cy="${CY + 95}" r="17" fill="${G}"/>`;
+    return `
+      <rect x="${CX - 255}" y="${CY - 150}" width="305" height="205" rx="14" fill="${C}" stroke="${G}" stroke-width="8"/>
+      <path d="M${CX - 255} ${CY - 100}H${CX + 50}M${CX - 255} ${CY + 5}H${CX + 50}" stroke="${G}" stroke-width="3" opacity=".6"/>
+      <circle cx="${CX - 102}" cy="${CY - 47}" r="74" fill="${R}"/>
+      <circle cx="${CX - 102}" cy="${CY - 47}" r="63" fill="none" stroke="${GL}" stroke-width="3"/>
+      ${recycle(CX - 102, CY - 47, 38)}
+      <path d="M${CX + 62} ${CY + 55}V${CY - 80}H${CX + 158}Q${CX + 186} ${CY - 80} ${CX + 202} ${CY - 54}L${CX + 250} ${CY + 12}V${CY + 55}Z" fill="${GL}" stroke="${G}" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M${CX + 86} ${CY - 56}H${CX + 152}L${CX + 196} ${CY + 2}H${CX + 86}Z" fill="${I}" opacity=".85"/>
+      <circle cx="${CX + 238}" cy="${CY + 30}" r="10" fill="${C}"/>
+      <rect x="${CX - 270}" y="${CY + 50}" width="530" height="24" rx="6" fill="${G}"/>
+      ${wheel(CX - 175)}${wheel(CX - 45)}${wheel(CX + 175)}`;
+  },
 
   // 7. Travel in Med — rose des vents
   compass: () => {
@@ -155,7 +171,7 @@ const WORKS = [
   { file: "work-3.svg", ground: "prium", object: "wheel" },
   { file: "work-4.svg", ground: "prium", object: "car" },
   { file: "work-5.svg", ground: "prium", object: "watch" },
-  { file: "work-6.svg", ground: "prium", object: "bin" },
+  { file: "work-6.svg", ground: "prium", object: "truck" },
   { file: "work-7.svg", ground: "cbm", object: "compass" },
   { file: "work-8.svg", ground: "cbm", object: "perfume" },
   { file: "work-9.svg", ground: "cbm", object: "bag" },

@@ -131,13 +131,13 @@
 // Portrait du site en médaillon : cadré sur le visage et le chapeau, petit pour limiter l'encre.
 // L'image est lue directement dans public/img/ : même portrait que la page d'accueil.
 #let portrait-medal(size: 40mm) = {
-  // Le portrait fait 800 × 1100 ; le visage est centré en (400, 531).
-  // On cadre un carré de 700 centré sur lui : x 50–750, y 181–881.
+  // Le portrait fait 800 × 1100 ; le visage est en (400, 531).
+  // Carré de 700 décalé vers le bas (x 50–750, y 251–951) : le visage apparaît dans le haut du cercle.
   let scale = size / 700
   box(width: size + 8pt, height: size + 8pt, {
     place(center + horizon, circle(radius: size / 2 + 3.5pt, stroke: 0.8pt + gold))
     place(center + horizon, box(width: size, height: size, radius: size / 2, clip: true,
-      place(top + left, dx: -50 * scale, dy: -181 * scale,
+      place(top + left, dx: -50 * scale, dy: -251 * scale,
         image("../public/img/portrait.svg", width: 800 * scale, height: 1100 * scale))))
     place(center + horizon, circle(radius: size / 2 + 0.6pt, stroke: 0.3pt + gold))
   })

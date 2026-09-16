@@ -37,6 +37,28 @@
   place(center + horizon, icon(name, size: size * 0.56))
 })
 
+// Ligne précédée d'une icône, texte aligné sur la même marge que les listes
+#let icon-line(name, body, size: 12.5pt) = grid(
+  columns: (size + 5pt, 1fr),
+  align: (center + top, left + top),
+  pad(top: 1.5pt, icon(name, size: size)),
+  body,
+)
+
+// Icône de chaque ligne de compétences (présentation uniquement ; le contenu vient du site)
+#let skill-icons = (
+  "Langages": "mi-Quill",
+  "Back-end": "mi-Wand",
+  "Front-end": "mi-Cards",
+  "Protocoles SSO": "mi-OrnateKey",
+  "Bases de données": "mi-Trunk",
+  "API tierces": "mi-Envelope",
+  "Infrastructure": "mi-DecoCloud",
+  "Serveurs web": "mi-Theatre",
+  "Outils": "mi-Scarab",
+  "Méthodes": "mi-Scroll",
+)
+
 // --- Ornements (traits fins, très peu d'encre) -------------------------------
 #let star(r: 3pt, fill: gold) = box(width: 2 * r, height: 2 * r, baseline: 15%, place(dx: r, dy: r, polygon(
   fill: fill,
@@ -148,16 +170,17 @@
 //  Compétences — « Libellé : valeurs », comme dans le CV d'origine
 // ============================================================================
 #section("Compétences", icon-name: "grid")
-#list(..d.skillGroups.map(g => [#text(font: f-title, weight: 700, size: 11pt)[#g.k :] #h(2pt) #text(size: 12pt)[#g.v]]))
+#stack(dir: ttb, spacing: 7pt, ..d.skillGroups.map(g => icon-line(skill-icons.at(g.k, default: "mi-Cog"),
+  [#text(font: f-title, weight: 700, size: 11pt)[#g.k :] #h(2pt) #text(size: 12pt)[#g.v]])))
 
 // ============================================================================
 //  Formations
 // ============================================================================
 #section("Formations", icon-name: "book")
-#list(..d.education.map(e => [
+#stack(dir: ttb, spacing: 10pt, ..d.education.map(e => icon-line("mi-Grimoire", size: 15pt, [
   #text(font: f-display, weight: 900, size: 15pt, fill: gold)[#e.period] #h(6pt) #text(font: f-title, weight: 700, size: 12.5pt)[#e.role] \
   #text(size: 11pt, style: "italic", fill: muted)[#e.org]
-]))
+])))
 
 // ============================================================================
 //  Expériences professionnelles — entreprise, poste, dates, projets détaillés
@@ -165,6 +188,8 @@
 #section("Expériences professionnelles", icon-name: "building")
 
 #let project-block(p) = block(breakable: false, above: 12pt, below: 4pt, {
+  icon("mi-Cards", size: 13pt)
+  h(5pt)
   text(font: f-title, weight: 700, size: 13.5pt, fill: ink)[#p.title]
   h(6pt)
   text(font: f-title, size: 9.6pt, tracking: 1pt, fill: gold)[#p.year]
@@ -178,9 +203,9 @@
 
 #let company-footer(c) = {
   if c.clients.len() > 0 {
-    block(above: 10pt, below: 0pt)[#label(c.at("clientsLabel", default: "Clients & projets")) #h(5pt) #text(size: 11pt)[#c.clients.join(" · ")]]
+    block(above: 10pt, below: 0pt)[#icon("mi-Theatre", size: 11pt) #h(3pt) #label(c.at("clientsLabel", default: "Clients & projets")) #h(5pt) #text(size: 11pt)[#c.clients.join(" · ")]]
   }
-  block(above: 6pt, below: 0pt)[#label("Environnement technique") #h(5pt) #text(size: 11pt, style: "italic", fill: muted)[#c.stack.join(", ")]]
+  block(above: 6pt, below: 0pt)[#icon("mi-Cog", size: 11pt) #h(3pt) #label("Environnement technique") #h(5pt) #text(size: 11pt, style: "italic", fill: muted)[#c.stack.join(", ")]]
 }
 
 #for (i, c) in d.companies.enumerate() {
@@ -195,6 +220,8 @@
       [#icon("calendar", size: 11.5pt) #h(3pt) #text(font: f-title, weight: 600, size: 9.8pt, tracking: 1.2pt, fill: gold, upper(c.period))],
     )
     v(-5pt)
+    icon("mi-Mask", size: 14pt)
+    h(5pt)
     text(font: f-title, weight: 700, size: 15pt, fill: red)[#c.role]
     h(6pt)
     text(size: 11.5pt, style: "italic", fill: muted)[#c.kind]

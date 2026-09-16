@@ -48,8 +48,12 @@ async function exportIcons(root) {
     const React = require("react");
     const { renderToStaticMarkup } = require("react-dom/server");
     const { icons } = await import(pathToFileURL(join(work, "icons.mjs")).href);
+    const magic = await import(pathToFileURL(join(work, "magicIcons.mjs")).href);
+    // Icônes du menu (clés du site : home, mail…) + tous les pictogrammes dessinés (mi-Nom)
+    const all = { ...icons };
+    for (const [name, Cmp] of Object.entries(magic)) if (typeof Cmp === "function") all[`mi-${name}`] = Cmp;
     const out = {};
-    for (const [key, Cmp] of Object.entries(icons)) {
+    for (const [key, Cmp] of Object.entries(all)) {
       out[key] = renderToStaticMarkup(React.createElement(Cmp))
         .replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"')
         // Le « creux » des pictogrammes suit le fond du support : blanc sur le papier.
